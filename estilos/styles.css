@@ -2,28 +2,29 @@
 /* estilos navbar */
 ul.navegacion {
   list-style-type: none;
-  margin: -1%;
   padding: 0;
   width: 15%;
-  background-color: #f1f1f173;
+  background-color: #eee7e7a1;
   position: fixed;
   height: 100%;
+  border-top-right-radius: 50px;
   overflow: auto;
   text-align: center;
-  border-radius: 25px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 ul.navegacion li a {
   display: block;
-  color: #000;
   padding: 8px 16px;
   text-decoration: none;
   font-size: 20px;
+  color: black;
+}
+ul.navegacion li a:hover{
+  background-color: rgb(3, 102, 133);
   color: white;
 }
-
 
 
 @media screen and (max-width: 768px) {
@@ -31,19 +32,22 @@ ul.navegacion li a {
     width: 100%;
     height: auto;
     position: relative;
+    border-top-right-radius: 0px;
   }
   ul.navegacion li a {
     text-align: center;
     padding: 15px;
   }
-
  
 }
 @media screen and (max-width: 400px) {
   ul.navegacion li a {
     text-align: center;
     float: none;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
   }
+
 }
 
 /*estilo header */
@@ -80,10 +84,10 @@ ul.navegacion li a {
 
 
 /*estilo body */
-body {
-  margin: 0;
-  background-color: rgb(3, 102, 133);
-  min-height: 100vh;
+body{
+  margin: 0 !important;
+  background-color: rgb(3, 102, 133) !important;
+  min-height: 100vh !important;
 }
 
 /* estilos listado_box.html */
@@ -406,16 +410,10 @@ textarea {
   color: #333333;
 }
 /* footer */
-.pie_pagina {
-  margin-left: 14%;
-  background-color: #333333;
-  color: white;
-  padding: 40px;
-  text-align: center;
-  width: 79.7%;
-  min-height: 10vh;
-}
 
+.pie_pagina {
+  margin-left: 15%;
+}
 .pie_pagina__redes_sociales {
   display: flex;
   justify-content: center;
@@ -428,8 +426,8 @@ textarea {
 
 @media screen and (max-width:768px) {
   .pie_pagina {
+    position: relative;
     margin: 0;
-    width: 89%;
   }
 }
 @media screen and (max-width: 480px) {
@@ -446,35 +444,10 @@ textarea {
 }
 
 /*pagina_principal*/
-.contenido {
-  min-height: 90vh;
-}
-.contenido__pagina_principal {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+.contenido_imagen {
+  margin-left: 20% !important;
 }
 
-.contenido__pagina_principal--imagen {
-  width: 100%;
-  padding-top: 5%;
-  
-  border-radius: 50px;
-}
 
-@media screen and (max-width:768px) {
-  
-  .contenido__pagina_principal--imagen {
-    width: 100%;
-    height: 80vh;
-  }
-}
-
-@media screen and (max-width:480px) {
-  .contenido__pagina_principal--imagen {
-    height: 50vh;
-  }
-}
 
 
