@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta name="viewport" content="width=device-width , initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Bowie</title>
+    <link rel="stylesheet" href="./estilos/output.css" />
+   
+  </head>
+  <body>
+  
+    <nav>
+      <ul class="navegacion">
+        <li>
+          <a href="index.html">Inicio</a>
+        </li>
+        <li>
+          <a href="listado_tabla.html">Tabla de productos</a>
+        </li>
+        <li>
+          <a href="listado_box.html">Box de productos</a>
+        </li>
+      </ul>
+    </nav>
+    <header class="header">
+      <h1>Bowie.com</h1>
+      <hr >
+    </header>
+    <main class="contenido">
+      <div class="contenedor_compra">
+        <div class="caja_form">
+          <h1>DATOS DE USUARIO</h1>
+          <form >
+            <div>
+              <input type="text" id="nombre" name="nombre" placeholder="Nombre" required>
+            </div>
+            <div>
+              <input type="text" id="apellido" name="Apellido" placeholder="Apellido" required>
+            </div>
+            <div>
+              <input type="text" id="direccion" name="direccion" placeholder="Direccion" required>
+            </div>
+            <div>
+              <input type="tel" id="telefono" name="telefono" placeholder="telefono" required>
+            </div>
+            <div>
+              <input type="email" id="email" name="email" placeholder="Email" required>
+            </div>
+            <div>
+              <label for="pago">Medio de pago:</label>
+              <select id="pago" name="pago" required>
+                <option value="">Seleccione una opción</option>
+                <option value="tarjeta">Tarjeta de crédito o débito</option>
+                <option value="efectivo">Efectivo</option>
+                <option value="transferencia">Transferencia bancaria</option>
+                <option value="paypal">PayPal</option>
+              </select>
+            </div>
+            <div>
+              <label for="productos">Listado de productos:</label>
+              <textarea id="productos" name="productos" rows="5" cols="40" required></textarea>
+            </div>
+            <br>
+            <div>
+              <input type="submit" value="Enviar" id="boton_enviar">
+            </div>
+          </form>
+        </div>
+        
+      </div>
+     
+
+    </main>
+
+    <footer class=" pie_pagina text-white bg-dark mt-5 p-5 text-center">
+      <div class="container-fluid">
+        <div class="row">
+          <h3>Copyright &copy; Bowie.com</h3>
+          <div class="pie_pagina__redes_sociales">
+            <a href="https://twitter.com" target="_blank">
+              <img src="imagenes/logo_twitter.png" alt="Twitter" />
+            </a>
+            <a href="https://facebook.com" target="_blank">
+              <img src="imagenes/logo_facebook.png" alt="Facebook" />
+            </a>
+            <a href="https://linkedin.com" target="_blank">
+              <img src="imagenes/logo_linkedin.png" alt="LinkedIn" />
+            </a>
+            <a href="https://instagram.com" target="_blank">
+              <img src="imagenes/logo_instagram.png" alt="Instagram" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+   
+  </body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-gray-100">
+  <head>
+    <meta name="viewport" content="width=device-width , initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <title>Bowie</title>
+    <link rel="stylesheet" href="./estilos/output.css" />
+  </head>
+  <body class="h-full bg-[--color-primary]">
+    <!--
+  This example requires updating your template:
+
+  ```
+  <html class="h-full bg-gray-100">
+  <body class="h-full">
+  ```
+-->
+    <div class="min-h-full">
+      <nav class="bg-[--color-nav]">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="flex h-16 items-center justify-between">
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+                <img
+                  class="h-8 w-8"
+                  src="imagenes/Logo_tienda.jpeg"
+                  alt="Bowie.com"
+                />
+              </div>
+              <div class="hidden md:block">
+                <div class="ml-10 flex items-baseline space-x-4 ]">
+                  <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                  <a
+                    href="index.html"
+                    class="bg-gray-900 rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]"
+                    aria-current="page"
+                    >Inicio</a
+                  >
+                  <a
+                    href="listado_tabla.html"
+                    class="text-gray-300 hover:bg-gray-700 rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]"
+                    >Tabla de Productos</a
+                  >
+                  <a
+                    href="listado_box.html"
+                    class="text-gray-300 hover:bg-gray-700 rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]"
+                    >Box de Productos</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile menu, show/hide based on menu state. -->
+        <div class="md:hidden" id="mobile-menu">
+          <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+            <a
+              href="index.html"
+              class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
+              aria-current="page"
+              >Inicio</a
+            >
+            <a
+              href="listado_tabla.html"
+              class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+              >Tabla de Productos</a
+            >
+            <a
+              href="listado_box.html"
+              class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+              >Box de Productos</a
+            >
+          </div>
+        </div>
+      </nav>
+
+      <header class="bg-[--color-primary] shadow">
+        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          <h1
+            class="text-3xl font-bold tracking-tight flex justify-center text-[#f8fafc]"
+          >
+            Bienvenidos
+          </h1>
+          <br />
+          <hr class="text-[#f8fafc]" />
+        </div>
+      </header>
+      <main class="bg-[--color-primary]">
+        <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+          <!-- Your content -->
+          <img
+            class="w-auto"
+            src="imagenes/Logo_tienda.jpeg"
+            alt="Bowie.com"
+          />
+        </div>
+      </main>
+      <footer class="bg-[#262626] w-full fixed bottom-0">
+        <div class="flex justify-center">
+          <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+            <!-- Your content -->
+            <h1 class="text-[#f8fafc]">Copyright &copy; Bowie.com</h1>
+            <div class="flex h-16 items-center justify-between">
+              <div class="flex items-center">
+                <a
+                  class="bg-gray-900 rounded-md px-3 py-2 text-sm font-medium"
+                  href="https://twitter.com"
+                  target="_blank"
+                >
+                  <img
+                    class="h-8 w-8"
+                    src="imagenes/logo_twitter.png"
+                    alt="Twitter"
+                  />
+                </a>
+                <a
+                  class="bg-gray-900 rounded-md px-3 py-2 text-sm font-medium"
+                  href="https://facebook.com"
+                  target="_blank"
+                >
+                  <img
+                    class="h-8 w-8"
+                    src="imagenes/logo_facebook.png"
+                    alt="Facebook"
+                  />
+                </a>
+                <a
+                  class="bg-gray-900 rounded-md px-3 py-2 text-sm font-medium"
+                  href="https://linkedin.com"
+                  target="_blank"
+                >
+                  <img
+                    class="h-8 w-8"
+                    src="imagenes/logo_linkedin.png"
+                    alt="LinkedIn"
+                  />
+                </a>
+                <a
+                  class="bg-gray-900 rounded-md px-3 py-2 text-sm font-medium"
+                  href="https://instagram.com"
+                  target="_blank"
+                >
+                  <img
+                    class="h-8 w-8"
+                    src="imagenes/logo_instagram.png"
+                    alt="Instagram"
+                  />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>  
+      </footer>
+    </div>
+  </body>
+</html>
