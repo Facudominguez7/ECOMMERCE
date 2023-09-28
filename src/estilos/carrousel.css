@@ -1,0 +1,25 @@
+
+
+.carrousel{
+    width: 50%;
+    max-width: 120em;
+    background-color: rgb(133, 133, 133);
+    border-radius: 25px;
+    overflow-x: hidden;
+}
+.grande{
+    width: 300%;
+    background-color: orange;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+.img{
+    width: calc(100% / 3);
+}
+
+
+.activo {
+    background-color: rgb(3, 102, 133);
+}
