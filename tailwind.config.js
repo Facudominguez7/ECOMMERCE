@@ -7,7 +7,11 @@ module.exports = {
       colornav: "hsl(var(--color-nav)",
       colorfooter: "#020617",
     },
-    extend: {},
+    extend: {
+      width: {
+        '300p' : '300%',
+      }
+    },
   },
   plugins: [
     require('flowbite/plugin')
