@@ -1758,10 +1758,6 @@ input:checked + .toggle-bg {
   padding-top: 1rem;
 }
 
-.pb-7 {
-  padding-bottom: 1.75rem;
-}
-
 .text-center {
   text-align: center;
 }
@@ -2215,26 +2211,14 @@ input:checked + .toggle-bg {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-@media (max-width: 1000px) {
-  .max-\[1000px\]\:fixed {
-    position: fixed;
-  }
-}
-
 @media (max-width: 640px) {
   .max-\[640px\]\:fixed {
     position: fixed;
   }
 }
 
-@media (max-width: 600px) {
-  .max-\[600px\]\:fixed {
-    position: fixed;
-  }
-}
-
-@media (max-width: 400px) {
-  .max-\[400px\]\:fixed {
+@media (max-width: 500px) {
+  .max-\[500px\]\:fixed {
     position: fixed;
   }
 }
