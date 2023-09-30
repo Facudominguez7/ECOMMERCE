@@ -1297,10 +1297,6 @@ input:checked + .toggle-bg {
   width: 100%;
 }
 
-.w-5\/6 {
-  width: 83.333333%;
-}
-
 .max-w-2xl {
   max-width: 42rem;
 }
@@ -1762,6 +1758,10 @@ input:checked + .toggle-bg {
   padding-top: 1rem;
 }
 
+.pb-7 {
+  padding-bottom: 1.75rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -2221,8 +2221,20 @@ input:checked + .toggle-bg {
   }
 }
 
+@media (max-width: 640px) {
+  .max-\[640px\]\:fixed {
+    position: fixed;
+  }
+}
+
 @media (max-width: 600px) {
   .max-\[600px\]\:fixed {
+    position: fixed;
+  }
+}
+
+@media (max-width: 400px) {
+  .max-\[400px\]\:fixed {
     position: fixed;
   }
 }
