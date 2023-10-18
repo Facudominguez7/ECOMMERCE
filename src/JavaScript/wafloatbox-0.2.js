@@ -5,7 +5,7 @@ jQuery.fn.extend({
         var a = $(this)
         a.prepend(`
         <div class="myk-btn">
-            <img src="/src/imagenes/wa-icon.png" class="myk-wa-icon">
+            <img src="./imagenes/wa-icon.png" class="myk-wa-icon">
         </div>
         <div class="myk-panel"></div>
         `)
@@ -15,7 +15,7 @@ jQuery.fn.extend({
         b.append(`
         <div class="myk-panelhead">
             <span class="myk-close">x</span>
-                <img src="./src/imagenes/wa-icon.png" class="myk-wa-icon" width="30px">
+                <img src="./imagenes/wa-icon.png" class="myk-wa-icon" width="30px">
             <h2 class="myk-paneltitle">Questions? </h2>
         </div>
         <div class="myk-panelbody"></div>
