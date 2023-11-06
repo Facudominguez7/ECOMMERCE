@@ -6,6 +6,7 @@
     :root {
       --color-primary: rgb(3, 102, 133);
       --color-nav: #d4cfcfa1;
+      --color-miboton: rgb(4, 133, 172);
       /* ... */
     }
   }

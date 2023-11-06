@@ -8,72 +8,12 @@
   </head>
   <body class="h-full bg-[--color-primary]">
     <div class="min-h-full">
-      <nav class="bg-[--color-nav]">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div class="flex h-16 items-center justify-between">
-            <div class="flex items-center">
-              <div class="flex-shrink-0">
-                <img
-                  class="h-8 w-8"
-                  src="imagenes/Logo_tienda.jpeg"
-                  alt="Bowie.com"
-                />
-              </div>
-              <div class="hidden md:block">
-                <div class="ml-10 flex items-baseline space-x-4 ]">
-                  <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                  <a
-                    href="index.html"
-                    class=" rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]"
-                    aria-current="page"
-                    >Inicio</a
-                  >
-                  <a
-                    href="listado_tabla.html"
-                    class=" rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]"
-                    >Tabla de Productos</a
-                  >
-                  <a
-                    href="listado_box.html"
-                    class="  rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]"
-                    >Box de Productos</a
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Mobile menu, show/hide based on menu state. -->
-        <div class="md:hidden" id="mobile-menu">
-          <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <a
-              href="index.html"
-              class=" text-white rounded-md px-3 py-2 text-sm font-medium"
-              aria-current="page"
-              >Inicio</a
-            >
-            <a
-              href="listado_tabla.html"
-              class="text-gray-300 h hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-              >Tabla de Productos</a
-            >
-            <a
-              href="listado_box.html"
-              class="text-gray-300  hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-              >Box de Productos</a
-            >
-          </div>
-        </div>
-      </nav>
-
       <header class="bg-[--color-primary] shadow">
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <h1
             class="text-3xl font-bold tracking-tight flex justify-center text-[#f8fafc]"
           >
-            Bienvenidos
+            Bowie.com
           </h1>
           <br />
           <hr class="text-[#f8fafc]" />
@@ -186,7 +126,7 @@
                 >
                   <img
                     class="h-8 w-8"
-                    src="imagenes/logo_twitter.png"
+                    src="./src/imagenes/logo_twitter.png"
                     alt="Twitter"
                   />
                 </a>
@@ -197,7 +137,7 @@
                 >
                   <img
                     class="h-8 w-8"
-                    src="imagenes/logo_facebook.png"
+                    src="./src/imagenes/logo_facebook.png"
                     alt="Facebook"
                   />
                 </a>
@@ -208,7 +148,7 @@
                 >
                   <img
                     class="h-8 w-8"
-                    src="imagenes/logo_linkedin.png"
+                    src="./src/imagenes/logo_linkedin.png"
                     alt="LinkedIn"
                   />
                 </a>
@@ -219,7 +159,7 @@
                 >
                   <img
                     class="h-8 w-8"
-                    src="imagenes/logo_instagram.png"
+                    src="./src/imagenes/logo_instagram.png"
                     alt="Instagram"
                   />
                 </a>
