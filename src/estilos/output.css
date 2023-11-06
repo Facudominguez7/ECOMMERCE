@@ -1198,10 +1198,6 @@ input:checked + .toggle-bg {
   margin-top: 1.75rem;
 }
 
-.mt-5 {
-  margin-top: 1.25rem;
-}
-
 .box-border {
   box-sizing: border-box;
 }
@@ -1617,10 +1613,6 @@ input:checked + .toggle-bg {
   background-color: rgb(248 250 252 / var(--tw-bg-opacity));
 }
 
-.bg-\[--color-miboton\] {
-  background-color: var(--color-miboton);
-}
-
 .bg-\[--color-nav\] {
   background-color: var(--color-nav);
 }
@@ -1666,10 +1658,6 @@ input:checked + .toggle-bg {
 
 .bg-white\/50 {
   background-color: rgb(255 255 255 / 0.5);
-}
-
-.bg-\[--color-mibo\] {
-  background-color: var(--color-mibo);
 }
 
 .bg-opacity-50 {
