@@ -12,7 +12,10 @@ module.exports = {
     extend: {
       width: {
         '300p' : '300%',
-      }
+      },
+      screens: {
+        '768': '768px',
+      },
     },
   },
   plugins: [

@@ -58,7 +58,7 @@
         </div>
       </main>
     </div>
-    <footer class="bg-[#262626] w-full fixed bottom-0">
+    <footer class="bg-[#262626] w-full ">
       <div class="flex justify-center">
         <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
           <!-- Your content -->

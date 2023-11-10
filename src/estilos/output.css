@@ -2333,6 +2333,26 @@ input:checked + .toggle-bg {
   }
 }
 
+@media (min-width: 800px) {
+  .min-\[800px\]\:fixed {
+    position: fixed;
+  }
+
+  .min-\[800px\]\:bottom-0 {
+    bottom: 0px;
+  }
+}
+
+@media (min-width: 900px) {
+  .min-\[900px\]\:fixed {
+    position: fixed;
+  }
+
+  .min-\[900px\]\:bottom-0 {
+    bottom: 0px;
+  }
+}
+
 @media (min-width: 1024px) {
   .lg\:ml-8 {
     margin-left: 2rem;
@@ -2426,5 +2446,11 @@ input:checked + .toggle-bg {
   .\32xl\:px-20 {
     padding-left: 5rem;
     padding-right: 5rem;
+  }
+}
+
+@media (min-width: px) {
+  .min-\[px\]\:fixed {
+    position: fixed;
   }
 }
