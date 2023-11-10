@@ -7,7 +7,7 @@ if (isset($_POST['nombre']) && isset($_POST['email']) && isset($_POST['clave']))
         echo "<script>alert('Error: El usuario ya existe');</script>";
     } else {
         //inserto el usuario nuevo
-        echo $sql = "INSERT INTO clientes (nombre, email, clave) values ('" . $_POST['nombre'] . "', '" . $_POST['email'] . "', '".$_POST['clave']."')";
+        echo $sql = "INSERT INTO clientes (nombre, email, clave,rol) values ('" . $_POST['nombre'] . "', '" . $_POST['email'] . "', '".$_POST['clave']."',1)";
         $sql = mysqli_query($con, $sql);
         if (mysqli_error($con)) {
             echo "<script>alert('Error no se pudo insertar el registro');</script>";

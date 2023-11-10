@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-11-2023 a las 21:48:13
+-- Tiempo de generación: 10-11-2023 a las 21:50:43
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -31,16 +31,18 @@ CREATE TABLE `clientes` (
   `id` int(11) NOT NULL,
   `email` varchar(50) NOT NULL,
   `clave` varchar(50) NOT NULL,
-  `nombre` varchar(50) NOT NULL
+  `nombre` varchar(50) NOT NULL,
+  `rol` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `clientes`
 --
 
-INSERT INTO `clientes` (`id`, `email`, `clave`, `nombre`) VALUES
-(1, 'facudominguez457@gmail.com', '123', 'Facundo'),
-(2, 'Dominguezfacu10@hotmail.com', '1234', 'Pedro');
+INSERT INTO `clientes` (`id`, `email`, `clave`, `nombre`, `rol`) VALUES
+(1, 'facudominguez457@gmail.com', '123', 'Facundo', 2),
+(2, 'Dominguezfacu10@hotmail.com', '1234', 'Pedro', 1),
+(3, 'sadads@gmail.com', '12345', 'Facu 1 ', 1);
 
 -- --------------------------------------------------------
 
@@ -56,6 +58,25 @@ CREATE TABLE `detalleventas` (
   `precio` double NOT NULL,
   `subTotal` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `permisos`
+--
+
+CREATE TABLE `permisos` (
+  `id` int(11) NOT NULL,
+  `rol` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `permisos`
+--
+
+INSERT INTO `permisos` (`id`, `rol`) VALUES
+(1, 'Lector'),
+(2, 'Administrador');
 
 -- --------------------------------------------------------
 
@@ -105,6 +126,12 @@ ALTER TABLE `detalleventas`
   ADD KEY `fkidVenta` (`idVenta`);
 
 --
+-- Indices de la tabla `permisos`
+--
+ALTER TABLE `permisos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `productos`
 --
 ALTER TABLE `productos`
@@ -125,13 +152,19 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `detalleventas`
 --
 ALTER TABLE `detalleventas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `permisos`
+--
+ALTER TABLE `permisos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
