@@ -5,13 +5,14 @@ $resultado = mysqli_query($con, $sql);
 $usuario = mysqli_fetch_assoc($resultado);
 if(isset($_GET['accion'])){
     if ($_GET['accion'] == 'guardar_editar'){
-        $sql= "UPDATE clientes SET nombre='{$_POST['nombre']}',email='{$_POST['email']}', clave='{$_POST['clave']}', rol='{$_POST['rol']}' WHERE id= $id" ;
+        $sql= "UPDATE clientes SET nombre='{$_POST['nombre']}',email='{$_POST['email']}', clave='{$_POST['clave']}', rol='{$_POST['rol']}' WHERE id= $id";
+        $sql = mysqli_query($con, $sql);
         echo $sql;
         if (!mysqli_error($con)) { 
-            echo "<script> alert('Disfrazz editado con exito');</script>";
+            echo "<script> alert('Usuario modificado con éxito');</script>";
         }else echo "<script> alert('ERROR, no se pudo editar');</script>";
     } 
-    //echo "<script>window.location='index.php';</script>";
+    echo "<script>window.location='index.php?modulo=usuario';</script>";
 }
 ?>
 
@@ -46,8 +47,8 @@ if(isset($_GET['accion'])){
                         <div class="form-group">
                             <label for="rol" class="form-label">Rol de usuario *</label>
                             <input type="number" id="rol" name="rol" class="form-control" placeholder="Escribe el rol, 1 admin, 2 lector.." value="<?php echo $usuario['rol']; ?>" required>
-                            <input type="" name="accion" value="guardar_editar">
-                            <input type="" name="id" value="<?php echo $id;?>">
+                            <input type="hidden" name="accion" value="guardar_editar">
+                            <input type="hidden" name="id" value="<?php echo $id;?>">
                         </div>
 
                         <br>

@@ -28,11 +28,18 @@ conectar();
             </div>
             <div class="hidden md:block">
               <div class="ml-10 flex items-baseline space-x-4">
-                <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                 <a href="index.php" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]" aria-current="page">Inicio</a>
                 <a href="index.php?modulo=listado_tabla" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]">Tabla de Productos</a>
                 <a href="index.php?modulo=listado_box" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]">Box de Productos</a>
-                <a href="index.php?modulo=usuario" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]">Administrar Usuarios</a>
+                <?php
+                if (isset($_SESSION['nombre_usuario'])){
+                  if ($_SESSION['rol'] == 2) {
+                    ?>
+                      <a href="index.php?modulo=usuario" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]">Administrar Usuarios</a>
+                    <?php
+                    }
+                } 
+                ?>
                 <?php
                 if (!empty($_SESSION['nombre_usuario'])) {
                 ?>

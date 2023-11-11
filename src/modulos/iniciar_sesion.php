@@ -5,11 +5,15 @@ if(isset($_GET['salir'])){
 }
  if (isset($_POST['email']) && isset($_POST['clave'])){
     $sql = "SELECT * FROM clientes WHERE email= '".$_POST['email']."' AND clave='".$_POST['clave']."'";
+    echo $sql;
     $sql = mysqli_query($con, $sql);
+    
     if(mysqli_num_rows($sql) != 0){
         $r = mysqli_fetch_array($sql);
         $_SESSION['id'] = $r['id'];
         $_SESSION['nombre_usuario'] = $r['email'];
+        $_SESSION['rol'] = $r['rol'];
+
         echo "<script> alert ('Bienvenido: ".$_SESSION['nombre_usuario']."');</script>";
         //crear la sesion
     }else {

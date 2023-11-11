@@ -1,118 +1,63 @@
 <!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta name="viewport" content="width=device-width , initial-scale=1.0" />
-    <meta charset="UTF-8" />
-    <title>Bowie</title>
-    <link rel="stylesheet" href="./estilos/output.css" />
-    <link rel="stylesheet" href="./estilos/estilo_tabla.css" />
-  </head>
-  <body class="h-full bg-[--color-primary]">
+<html lang="en">
+<head>
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Productos</title>
+</head>
 
-    <div class="min-h-full">
-
-      <header class="bg-[--color-primary]">
-        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <h1
-            class="text-3xl font-bold tracking-tight flex justify-center text-[#f8fafc]"
-          >
-            Bowie.com
-          </h1>
-          <br />
-          <hr class="text-[#f8fafc]" />
+<div class="container is-fluid">
+    <div class="col-xs-12">
+        <h1>Bienvenido Administrador <?php echo $_SESSION['nombre_usuario']; ?></h1>
+        <br>
+        <h1>Lista de productos</h1>
+        <br>
+        <div>
+            <a class="btn btn-success" href="index.php?modulo=agregar_producto">Nuevo Producto
+                <i class="fa fa-plus"></i>
+            </a>
         </div>
-      </header>
-      <main>
-        <!--Tabla de Productos-->
-        <div class="relative pb-4 overflow-x-auto sm:rounded-lg flex justify-center ">
-          <table class="rounded-3xl w-3/4 border-collapse text-[#030303] font-sans text-xl text-center bg-[--color-nav]" >
+        <br>
+        <br>
+        <table class="table table-striped table-dark " id="table_id">
             <thead>
-              <tr class="hover:bg-[--color-primary] hover:text-[#f8fafc]">
-                <th class=" hidden sm:block p-5">
-                  <span class="sr-only">Imagen</span>
-                </th>
-                <th class="p-5 ">Nombre</th>
-                <th class="p-5">Precio</th>
-                <th class="p-5">Accion</th>
-              </tr>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Acciones</th>
+                </tr>
             </thead>
             <tbody>
-              <tr class="hover:bg-[--color-primary] hover:text-[#f8fafc]">
-                <td class=" hidden sm:block w-32 p-4 mx-auto ">
-                  <img class="ml-0.5" src="./src/imagenes/Iphone14.webp">
-                </td>
-                <td class="p-4">Iphone 14</td>
-                <td class="p-4">$2.000</td>
-                <td class="p-4"><a href="index.php?modulo=producto">Detalles</a></td>
-              </tr>
-              <tr class="hover:bg-[--color-primary] hover:text-[#f8fafc]">
-                <td class="hidden sm:block w-32 p-4 mx-auto">
-                  <img src="./src/imagenes/Placa_video.webp" alt="RX 6700 XT">
-                </td>
-                <td class="p-4">Placa de video RX 6700 XT</td>
-                <td class="p-4">$500</td>
-                <td class="p-4"><a href="index.php?modulo=producto">Detalles</a></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </main>
-    </div>
-    <footer class="bg-[#262626] w-full ">
-      <div class="flex justify-center">
-        <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-          <!-- Your content -->
-          <h1 class="text-[#f8fafc]">Copyright &copy; Bowie.com</h1>
-          <div class="flex h-16 items-center justify-between">
-            <div class="flex items-center">
-              <a
-                class="rounded-md px-3 py-2 text-sm font-medium"
-                href="https://twitter.com"
-                target="_blank"
-              >
-                <img
-                  class="h-8 w-8"
-                  src="./src/imagenes/logo_twitter.png"
-                  alt="Twitter"
-                />
-              </a>
-              <a
-                class="rounded-md px-3 py-2 text-sm font-medium"
-                href="https://facebook.com"
-                target="_blank"
-              >
-                <img
-                  class="h-8 w-8"
-                  src="./src/imagenes/logo_facebook.png"
-                  alt="Facebook"
-                />
-              </a>
-              <a
-                class=" rounded-md px-3 py-2 text-sm font-medium"
-                href="https://linkedin.com"
-                target="_blank"
-              >
-                <img
-                  class="h-8 w-8"
-                  src="./src/imagenes/logo_linkedin.png"
-                  alt="LinkedIn"
-                />
-              </a>
-              <a
-                class="rounded-md px-3 py-2 text-sm font-medium"
-                href="https://instagram.com"
-                target="_blank"
-              >
-                <img
-                  class="h-8 w-8"
-                  src="./src/imagenes/logo_instagram.png"
-                  alt="Instagram"
-                />
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-  </body>
+                <?php
+                $SQL = "SELECT * FROM productos";
+                $dato = mysqli_query($con, $SQL);
+                if ($dato->num_rows > 0) {
+                    while ($fila = mysqli_fetch_array($dato)) {
+
+                ?>
+                        <tr>
+                            <td><?php echo $fila['nombre']; ?></td>
+                            <td><?php echo $fila['precio']; ?></td>
+                            <td>
+                                <a class="btn btn-warning" href="index.php?modulo=editar_producto&id=<?php echo $fila['id'] ?> ">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a class="btn btn-danger" href="eliminar_user.php?id=<?php echo $fila['id'] ?>">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php
+                    }
+                } else {
+                    ?>
+                    <tr class="text-center">
+                        <td colspan="16">No existen registros</td>
+                    </tr>
+                <?php
+                }
+                ?>
+                
+        </table>
+       
 </html>
