@@ -22,6 +22,7 @@
         <table class="table table-striped table-dark " id="table_id">
             <thead>
                 <tr>
+                    <th>id Producto</th>
                     <th>Nombre</th>
                     <th>Precio</th>
                     <th>Acciones</th>
@@ -36,13 +37,14 @@
 
                 ?>
                         <tr>
+                            <td><?php echo $fila['id']; ?></td>
                             <td><?php echo $fila['nombre']; ?></td>
-                            <td><?php echo $fila['precio']; ?></td>
+                            <td>$<?php echo $fila['precio']; ?></td>
                             <td>
                                 <a class="btn btn-warning" href="index.php?modulo=editar_producto&id=<?php echo $fila['id'] ?> ">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                                <a class="btn btn-danger" href="eliminar_user.php?id=<?php echo $fila['id'] ?>">
+                                <a class="btn btn-danger" href="index.php?modulo=eliminar_producto&id=<?php echo $fila['id'] ?>">
                                     <i class="fa fa-trash"></i>
                                 </a>
                             </td>

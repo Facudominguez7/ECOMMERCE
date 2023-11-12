@@ -47,7 +47,7 @@
                                 <a class="btn btn-warning" href="index.php?modulo=editar_usuario&id=<?php echo $fila['id'] ?> ">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                                <a class="btn btn-danger" href="eliminar_user.php?id=<?php echo $fila['id'] ?>">
+                                <a class="btn btn-danger" href="index.php?modulo=eliminar_usuario&id=<?php echo $fila['id'] ?>">
                                     <i class="fa fa-trash"></i>
                                 </a>
                             </td>

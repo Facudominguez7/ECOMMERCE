@@ -10,11 +10,55 @@
   </div>
 </header>
 <main class="bg-[--color-primary]">
+  <?php
+  $id = $_GET['id'];
+  $sql = "SELECT * FROM productos where id = $id";
+  $conexion = mysqli_query($con, $sql);
+  if (mysqli_num_rows($conexion) != 0) {
+    // Obtener el resultado como un array asociativo
+    $dato = mysqli_fetch_assoc($conexion);
+    // Obtener todas las imagenes de la carpeta del producto
+    $carpetaProducto = "imagenes/productos/" . $dato['id'] . "/";
+    $imagenesProducto = glob($carpetaProducto . "*.{jpg,jpeg,png,gif,webp}", GLOB_BRACE);
+
+    $imagenes = array();
+
+    if (!empty($imagenesProducto)) {
+      foreach ($imagenesProducto as $imagen) {
+
+        // Agregar el nombre del archivo al final del array $imagenes
+        array_push($imagenes, $imagen);
+      }
+    } else {
+      $imagenes = "../imagenes/default.jpg";
+    }
+  }
+  ?>
   <div class="md:flex items-start justify-center py-12 2xl:px-20 md:px-6 px-4">
 
-    <div class="xl:w-2/6 lg:w-2/5 w-80 md:block hidden">
-      <img class="w-full" alt="Samsung galaxy z fold 5" src="./src/imagenes/Z_Fold_5.webp" />
-      <img class="mt-6 w-full" alt="Samsung galaxy z fold 5" src="./src/imagenes/Z_Fold_5_atras.webp" />
+    <div class="xl:w-2/6 lg:w-2/5 w-full md:block hidden">
+      <?php
+      // Verificar si $imagenes está definida y no es null
+      if (isset($imagenes) && is_array($imagenes) && count($imagenes) > 0) {
+        // Iterar sobre las imágenes
+        foreach ($imagenes as $index => $imagen) {
+          // Verificar si es la primera imagen o una imagen impar
+          if ($index % 2 == 0) {
+            echo '<div class="flex mb-6">';
+          }
+
+          // Mostrar la imagen
+          echo '<img class="w-1/2 h-auto mr-2" src="' . $imagen . '" alt="' . $dato['nombre'] . '" />';
+
+          // Verificar si es la última imagen o una imagen par
+          if ($index % 2 != 0 || $index == count($imagenes) - 1) {
+            echo '</div>';
+          }
+        }
+      } else {
+        echo "Array vacío";
+      }
+      ?>
     </div>
     <div class="md:hidden">
       <img class="w-full" alt="Samsung galaxy z fold 5" src="./src/imagenes/Z_Fold_5.webp" />
@@ -225,4 +269,5 @@
     </div>
   </div>
 </footer>
+
 </html>

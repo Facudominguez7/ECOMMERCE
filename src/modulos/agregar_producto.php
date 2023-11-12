@@ -1,27 +1,67 @@
 <?php
-if (isset($_GET['salir'])) {
-    session_destroy();
-    echo "<script>window.location='index.php';</script>";
-}
-if (isset($_POST['email']) && isset($_POST['clave'])) {
-    $sql = "SELECT * FROM clientes WHERE email= '" . $_POST['email'] . "' AND clave='" . $_POST['clave'] . "'";
-    echo $sql;
-    $sql = mysqli_query($con, $sql);
+if (
+    isset($_POST['nombre']) &&
+    isset($_POST['precio']) &&
+    isset($_POST['descripcion']) &&
+    isset($_POST['color'])
+) {
+    // Obtener datos del formulario
+    $nombre = $_POST['nombre'];
+    $precio = $_POST['precio'];
+    $descripcion = $_POST['descripcion'];
+    $color = $_POST['color'];
 
-    if (mysqli_num_rows($sql) != 0) {
-        $r = mysqli_fetch_array($sql);
-        $_SESSION['id'] = $r['id'];
-        $_SESSION['nombre_usuario'] = $r['email'];
-        $_SESSION['rol'] = $r['rol'];
+    // Insertar datos en la tabla de productos
+    $sqlInsertProducto = "INSERT INTO productos (nombre, precio, descripcion, color) VALUES (?, ?, ?, ?)";
+    $stmtProducto = mysqli_prepare($con, $sqlInsertProducto);
+    mysqli_stmt_bind_param($stmtProducto, "ssss", $nombre, $precio, $descripcion, $color);
+    mysqli_stmt_execute($stmtProducto);
 
-        echo "<script> alert ('Bienvenido: " . $_SESSION['nombre_usuario'] . "');</script>";
-        //crear la sesion
+    if (mysqli_error($con)) {
+        echo "<script>alert('Error al insertar el registro en productos: " . mysqli_error($con) . "');</script>";
     } else {
-        echo "<script> alert('Verifique los datos.');</script>";
+        echo "<script>alert('Registro insertado en productos con éxito');</script>";
+        // Obtener el ID del producto recién insertado
+        $producto_id = mysqli_insert_id($con);
+        // Manejar la subida de imágenes
+        $carpeta_carga = "imagenes/productos/" . $producto_id . "/";
+
+        if (!file_exists($carpeta_carga)) {
+            if (!mkdir($carpeta_carga, 0777, true)) {
+                echo ('Error al crear el directorio: ' . $carpeta_carga);
+            }
+        }
+
+        foreach ($_FILES["lista"]["tmp_name"] as $key => $tmp_name) {
+            $fileName = basename($_FILES["lista"]["name"][$key]);
+            $targetFile = $carpeta_carga . $fileName;
+
+            echo "Directorio de destino: " . $carpeta_carga . "<br>";
+            echo "Archivo de destino: " . $targetFile . "<br>";
+
+            // Mueve la imagen al directorio de destino
+            if (move_uploaded_file($tmp_name, $targetFile)) {
+                // Insertar datos en la tabla de imágenes
+                $sqlInsertImagen = "INSERT INTO productos_files (producto_id, nombre_archivo) VALUES (?, ?)";
+                $stmtImagen = mysqli_prepare($con, $sqlInsertImagen);
+                mysqli_stmt_bind_param($stmtImagen, "ss", $producto_id, $fileName);
+                mysqli_stmt_execute($stmtImagen);
+
+                if (mysqli_error($con)) {
+                    echo "<script>alert('Error al insertar el registro de la imagen en productos_files: " . mysqli_error($con) . "');</script>";
+                } else {
+                    echo "<script>alert('Registro de imagen insertado en productos_files con éxito');</script>";
+                }
+            } else {
+                echo "<script>alert('Error al mover la imagen al directorio de destino: " . $targetFile . "');</script>";
+            }
+        }
+
+        echo "<script>window.location='index.php?modulo=agregar_producto';</script>";
     }
-    echo "<script>window.location='index.php';</script>";
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -46,7 +86,7 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
             <div class="w-full md:w-1/2 ">
 
                 <!-- Formulario -->
-                <form class="bg-white px-8 pt-6 pb-8 mb-4 rounded-lg" action="index.php?modulo=agregar_producto" method="POST">
+                <form class="bg-white px-8 pt-6 pb-8 mb-4 rounded-lg" action="index.php?modulo=agregar_producto" method="POST" enctype="multipart/form-data">
                     <div class="mb-4">
                         <div class="grid grid-flow-row sm:grid-flow-col gap-3">
                             <div class="sm:col-span-4 justify-center mt-2">
@@ -68,38 +108,36 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
                         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="color" name="color" type="text" placeholder="Color del producto" required>
                     </div>
                     <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="precio"> Agregar Fotos </label>
+                        <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="imagen"> Agregar Fotos </label>
                         <div style="position: relative;">
-                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2 mt-2" id="foto" name="foto" type="file" placeholder="Agregue Fotos" required>
-                            <button class="btn btn-success mt-2" id="boton" onclick="agregarFotos()">Agregar mas fotos</button>
+                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2 mt-2" id="lista" name="lista[]" type="file" multiple onchange="mostrarVistaPrevia()">
+                            <div id="vista_previa_container"></div>
                         </div>
-                        <div class="mt-2 mb-2" id="contenedor"></div>
-                        <script>
-                            var numInputs = 1;
-                            function agregarFotos() {
-                                // Obtener el elemento div contenedor
-                                var contenedor = document.getElementById("contenedor");
-                                // Crear un nuevo input de tipo file con un id y un name que incluyan el número de inputs creados
-                                var nuevoInput = document.createElement("input");
-                                nuevoInput.setAttribute("type", "file");
-                                nuevoInput.setAttribute("id", "foto" + numInputs);
-                                nuevoInput.setAttribute("name", "foto" + numInputs);
-                                nuevoInput.setAttribute("class", "mb-2" + numInputs);
-                                // Agregar el nuevo input al elemento div contenedor
-                                contenedor.appendChild(nuevoInput);
-                                // Incrementar la variable global que lleva la cuenta de los inputs creados
-                                numInputs++;
-                            }
-                        </script>
                     </div>
+
                     <div class="flex items-center justify-between mt-3 ">
                         <button class="bg-[--color-primary] text-white font-bold py-2 px-4 rounded mb-2">Agregar Producto</button>
                     </div>
+                    <script>
+                        function mostrarVistaPrevia() {
+                            var input = document.getElementById("lista");
+                            var vistaPreviaContainer = document.getElementById("vista_previa_container");
+                            vistaPreviaContainer.innerHTML = "";
+
+                            if (input.files && input.files.length > 0) {
+                                for (var i = 0; i < input.files.length; i++) {
+                                    var imagenPrevia = document.createElement("img");
+                                    imagenPrevia.src = URL.createObjectURL(input.files[i]);
+                                    imagenPrevia.classList.add("vista-previa-imagen");
+                                    vistaPreviaContainer.appendChild(imagenPrevia);
+                                }
+                            }
+                        }
+                    </script>
                 </form>
             </div>
         </div>
     </div>
-
 </main>
 
 <footer class="bg-[#262626] w-full ">
