@@ -3,18 +3,28 @@ if (
     isset($_POST['nombre']) &&
     isset($_POST['precio']) &&
     isset($_POST['descripcion']) &&
-    isset($_POST['color'])
+    isset($_POST['color']) &&
+    isset($_POST['almacenamiento']) &&
+    isset($_POST['codigo']) &&
+    isset($_POST['altura']) &&
+    isset($_POST['ancho']) &&
+    isset($_POST['peso'])
 ) {
     // Obtener datos del formulario
     $nombre = $_POST['nombre'];
     $precio = $_POST['precio'];
     $descripcion = $_POST['descripcion'];
     $color = $_POST['color'];
+    $almacenamiento = $_POST['almacenamiento'];
+    $codigo = $_POST['codigo'];
+    $altura = $_POST['altura'];
+    $ancho = $_POST['ancho'];
+    $peso = $_POST['peso'];
 
     // Insertar datos en la tabla de productos
-    $sqlInsertProducto = "INSERT INTO productos (nombre, precio, descripcion, color) VALUES (?, ?, ?, ?)";
+    $sqlInsertProducto = "INSERT INTO productos(nombre, precio, descripcion, color, almacenamiento, codigo, altura, ancho, peso) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmtProducto = mysqli_prepare($con, $sqlInsertProducto);
-    mysqli_stmt_bind_param($stmtProducto, "ssss", $nombre, $precio, $descripcion, $color);
+    mysqli_stmt_bind_param($stmtProducto, "sssssssss", $nombre, $precio, $descripcion, $color, $almacenamiento, $codigo, $altura, $ancho, $peso);
     mysqli_stmt_execute($stmtProducto);
 
     if (mysqli_error($con)) {
@@ -57,7 +67,7 @@ if (
             }
         }
 
-        echo "<script>window.location='index.php?modulo=agregar_producto';</script>";
+        echo "<script>window.location='index.php?modulo=listado_tabla';</script>";
     }
 }
 ?>
@@ -104,8 +114,28 @@ if (
                         <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="descripcion" name="descripcion" type="textarea" placeholder="Descripción del producto" required></textarea>
                     </div>
                     <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="precio"> Color </label>
+                        <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="color"> Color </label>
                         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="color" name="color" type="text" placeholder="Color del producto" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="almacenamiento"> Tamaño de Almacenamiento </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="almacenamiento" name="almacenamiento" type="text" placeholder="Tamaño de Almacenamiento" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="codigo"> Codigo del Producto </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="codigo" name="codigo" type="text" placeholder="Color del producto" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="altura"> Altura </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="altura" name="altura" type="text" placeholder="Altura del producto en mm" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="ancho"> Ancho </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="ancho" name="ancho" type="text" placeholder="Ancho del producto en mm" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="peso"> Peso </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="peso" name="peso" type="text" placeholder="Peso del producto en gramos" required>
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="imagen"> Agregar Fotos </label>
@@ -139,30 +169,5 @@ if (
         </div>
     </div>
 </main>
-
-<footer class="bg-[#262626] w-full ">
-    <div class="flex justify-center">
-        <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-            <!-- Your content -->
-            <h1 class="text-[#f8fafc]">Copyright &copy; Bowie.com</h1>
-            <div class="flex h-16 items-center justify-between">
-                <div class="flex items-center">
-                    <a class="rounded-md px-3 py-2 text-sm font-medium" href="https://twitter.com" target="_blank">
-                        <img class="h-8 w-8" src="./src/imagenes/logo_twitter.png" alt="Twitter" />
-                    </a>
-                    <a class="rounded-md px-3 py-2 text-sm font-medium" href="https://facebook.com" target="_blank">
-                        <img class="h-8 w-8" src="./src/imagenes/logo_facebook.png" alt="Facebook" />
-                    </a>
-                    <a class="rounded-md px-3 py-2 text-sm font-medium" href="https://linkedin.com" target="_blank">
-                        <img class="h-8 w-8" src="./src/imagenes/logo_linkedin.png" alt="LinkedIn" />
-                    </a>
-                    <a class="rounded-md px-3 py-2 text-sm font-medium" href="https://instagram.com" target="_blank">
-                        <img class="h-8 w-8" src="./src/imagenes/logo_instagram.png" alt="Instagram" />
-                    </a>
-                </div>
-            </div>
-        </div>
-
-</footer>
 
 </html>

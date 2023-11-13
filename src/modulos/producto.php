@@ -24,6 +24,7 @@
     $imagenes = array();
 
     if (!empty($imagenesProducto)) {
+      $primeraImagen = $imagenesProducto[0];
       foreach ($imagenesProducto as $imagen) {
 
         // Agregar el nombre del archivo al final del array $imagenes
@@ -61,13 +62,13 @@
       ?>
     </div>
     <div class="md:hidden">
-      <img class="w-full" alt="Samsung galaxy z fold 5" src="./src/imagenes/Z_Fold_5.webp" />
+      <img class="w-1/2" alt="Samsung galaxy z fold 5" src="<?php echo $primeraImagen; ?>" />
       <div class="flex items-center justify-between mt-3 space-x-4 md:space-x-0"></div>
     </div>
     <div class="xl:w-2/5 md:w-1/2 lg:ml-8 md:ml-6 md:mt-0 mt-6">
       <div class="border-b border-gray-200 pb-6">
         <h1 class="text-[#f8fafc] lg:text-2xl text-xl font-semibold lg:leading-6 leading-7 t dark:text-white mt-2">
-          Samsung Galaxy Z Fold 5
+          <?php echo $dato['nombre'] ?>
         </h1>
       </div>
       <div class="py-4 border-b border-gray-200 flex items-center justify-between">
@@ -76,7 +77,7 @@
         </p>
         <div class="flex items-center justify-center">
           <p class="text-[#f8fafc] text-sm leading-none dark:text-gray-300">
-            Icy Blue
+            <?php echo $dato['color'] ?>
           </p>
           <div class="w-6 h-6 bg-gradient-to-b from-gray-900 to-indigo-500 ml-3 mr-4 cursor-pointer"></div>
           <svg class="cursor-pointer text-gray-300 dark:text-white" width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -86,11 +87,11 @@
       </div>
       <div class="py-4 border-b border-gray-200 flex items-center justify-between">
         <p class="text-[#f8fafc] text-base leading-4 t dark:text-gray-300">
-          Tamaño de Memoria
+          Tamaño de Almacenamiento
         </p>
         <div class="flex items-center justify-center">
           <p class="text-[#f8fafc] text-sm leading-none dark:text-gray-300 mr-3">
-            512 GB
+            <?php echo $dato['almacenamiento']?>
           </p>
           <svg class="text-gray-300 dark:text-white cursor-pointer" width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1 1L5 5L1 9" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
@@ -102,43 +103,22 @@
       </a>
       <div>
         <p class="text-[#f8fafc] xl:pr-48 text-base lg:leading-tight leading-normal dark:text-gray-300 mt-7">
-          Doble cámara y más detalles Sus 2 cámaras traseras de 50 Mpx/12
-          Mpx/10 Mpx te permitirán tomar imágenes con más detalles y
-          lograr efectos únicos como el famoso modo retrato de poca
-          profundidad de campo. Además, el dispositivo cuenta con cámara
-          frontal de 10 Mpx para que puedas sacarte divertidas selfies o
-          hacer videollamadas. Descubrí la pantalla plegable Al plegarse,
-          adopta un tamaño pequeño y compacto que te resultará muy cómodo
-          para transportar. Cuando quieras disfrutar de tus contenidos
-          favoritos se transforma desplegando su pantalla de 7.6".
-          Desbloqueo veloz con tu huella dactilar Con el sensor de huella
-          dactilar, el acceso es seguro y podrás desbloquearlo
-          automáticamente con un toque. Batería de duración superior
-          ¡Desenchufate! Con la súper batería de 4400 mAh tendrás energía
-          por mucho más tiempo para jugar, ver series o trabajar sin
-          necesidad de realizar recargas. Capacidad de almacenamiento
-          ilimitada Olvidate de borrar. Con su memoria interna de 256 GB
-          podrás descargar todos los archivos y aplicaciones que
-          necesites, guardar fotos y almacenar tus películas, series y
-          videos favoritos para reproducirlos cuando quieras.
+        <?php echo $dato['descripcion']?>
         </p>
         <p class="text-[#f8fafc] text-base leading-4 mt-7 dark:text-gray-300">
-          Código de Producto: 8BN321AF2IF0NYA
+          Código de Producto: <?php echo $dato['codigo']?>
         </p>
         <p class="text-[#f8fafc] text-base leading-4 mt-4 dark:text-gray-300">
-          Altura Cerrado: 154.9 mm
+          Altura: <?php echo $dato['altura']?>
         </p>
         <p class="text-[#f8fafc] text-base leading-4 mt-4 dark:text-gray-300">
-          Ancho Cerrado: 67.1 mm
+          Ancho: <?php echo $dato['ancho']?>
         </p>
         <p class="text-[#f8fafc] text-base leading-4 mt-4 dark:text-gray-300">
-          Profundidad Cerrado: 13.4 mm
-        </p>
-        <p class="text-[#f8fafc] text-base leading-4 mt-4 dark:text-gray-300">
-          Peso: 253 g
+          Peso: <?php echo $dato['peso']?>
         </p>
         <p class="text-[#f8fafc] md:w-96 text-base leading-normal dark:text-gray-300 mt-4">
-          Altura x Ancho x Profundidad: 154.9 mm x 129.9 mm x 6.1 mm
+          Altura x Ancho: <?php echo $dato['altura']?> x <?php echo $dato['ancho']?>
         </p>
       </div>
       <div>
