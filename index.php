@@ -47,6 +47,7 @@ conectar();
                   <a href="index.php?modulo=iniciar_sesion" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary] hidden">Iniciar Sesion</a>
                   <p>Bienvenido <?php echo $_SESSION['nombre_usuario']; ?></p>
                   <a href="index.php?modulo=iniciar_sesion&salir=ok" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]">Cerrar Sesión</a>
+                  <a href="index.php?modulo=carrito" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]">Carrito</a>
                 <?php
                 } else {
                 ?>
