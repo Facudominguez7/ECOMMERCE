@@ -1112,11 +1112,6 @@ input:checked + .toggle-bg{
   margin-right: auto;
 }
 
-.my-4{
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
 .-ml-8{
   margin-left: -2rem;
 }
@@ -1237,6 +1232,10 @@ input:checked + .toggle-bg{
   display: none;
 }
 
+.h-1{
+  height: 0.25rem;
+}
+
 .h-10{
   height: 2.5rem;
 }
@@ -1277,6 +1276,10 @@ input:checked + .toggle-bg{
   height: 100vh;
 }
 
+.h-12{
+  height: 3rem;
+}
+
 .min-h-full{
   min-height: 100%;
 }
@@ -1285,8 +1288,8 @@ input:checked + .toggle-bg{
   width: 50%;
 }
 
-.w-10{
-  width: 2.5rem;
+.w-14{
+  width: 3.5rem;
 }
 
 .w-300p{
@@ -1315,10 +1318,6 @@ input:checked + .toggle-bg{
 
 .w-full{
   width: 100%;
-}
-
-.w-14{
-  width: 3.5rem;
 }
 
 .max-w-2xl{
@@ -1555,19 +1554,9 @@ input:checked + .toggle-bg{
   border-radius: 0.75rem;
 }
 
-.rounded-l{
-  border-top-left-radius: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
-}
-
 .rounded-l-lg{
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
-}
-
-.rounded-r{
-  border-top-right-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
 }
 
 .rounded-r-lg{
@@ -1741,11 +1730,6 @@ input:checked + .toggle-bg{
 .px-3{
   padding-left: 0.75rem;
   padding-right: 0.75rem;
-}
-
-.px-3\.5{
-  padding-left: 0.875rem;
-  padding-right: 0.875rem;
 }
 
 .px-4{
@@ -2063,10 +2047,6 @@ input:checked + .toggle-bg{
   transition-duration: 150ms;
 }
 
-.duration-100{
-  transition-duration: 100ms;
-}
-
 .duration-300{
   transition-duration: 300ms;
 }
@@ -2094,11 +2074,6 @@ input:checked + .toggle-bg{
   background-color: var(--color-primary);
 }
 
-.hover\:bg-blue-500:hover{
-  --tw-bg-opacity: 1;
-  background-color: rgb(63 131 248 / var(--tw-bg-opacity));
-}
-
 .hover\:bg-blue-600:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(28 100 242 / var(--tw-bg-opacity));
@@ -2122,11 +2097,6 @@ input:checked + .toggle-bg{
 .hover\:bg-white:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.hover\:text-blue-50:hover{
-  --tw-text-opacity: 1;
-  color: rgb(235 245 255 / var(--tw-text-opacity));
 }
 
 .hover\:text-blue-600:hover{

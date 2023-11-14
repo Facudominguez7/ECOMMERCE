@@ -98,8 +98,8 @@
           </svg>
         </div>
       </div>
-      <a href="index.php?modulo=comprar" class="text-[#f8fafc] dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-base flex items-center justify-center leading-none bg-gray-800 w-full py-4 hover:bg-gray-700 focus:outline-none">
-        Comprar
+      <a href="index.php?modulo=carrito&accion=agregar_carrito&id=<?php echo $dato['id']?>&precio=<?php echo $dato['precio']?>" class="text-[#f8fafc] dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-base flex items-center justify-center leading-none bg-gray-800 w-full py-4 hover:bg-gray-700 focus:outline-none">
+        Añadir al Carrito
       </a>
       <div>
         <p class="text-[#f8fafc] xl:pr-48 text-base lg:leading-tight leading-normal dark:text-gray-300 mt-7">
