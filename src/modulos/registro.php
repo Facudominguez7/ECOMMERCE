@@ -62,6 +62,9 @@ if (isset($_POST['nombre']) && isset($_POST['email']) && isset($_POST['clave']))
                     </div>
                     <div class="flex items-center justify-between mt-3 ">
                         <button class="bg-[--color-primary] text-white font-bold py-2 px-4 rounded mb-2">Registrarse</button>
+                        <button class="bg-[--color-primary] text-white font-bold py-2 px-4 rounded mb-2">
+                            <a href="index.php?modulo=iniciar_sesion">Ya tiene una cuenta? Iniciar Sesión</a>
+                        </button>
                     </div>
                 </form>
             </div>

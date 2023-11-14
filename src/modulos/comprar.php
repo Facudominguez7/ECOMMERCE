@@ -1,7 +1,7 @@
 <?php
 $id_usuario = $_SESSION['id'];
 $total_venta = $_GET['totalcompra'];
-echo $sql = "SELECT * FROM clientes WHERE id = $id_usuario";
+$sql = "SELECT * FROM clientes WHERE id = $id_usuario";
 $conexion = mysqli_query($con, $sql);
 if (mysqli_error($con)) {
   echo "<script> alert('ERROR NO SE PUDO OBTENER LOS DATOS DEL USUARIO);</script>";
@@ -46,11 +46,11 @@ if (mysqli_error($con)) {
                     </div>
                     <div>
                       <label class="block mb-1 font-bold text-[#333333] " for="nombre">Dirección:</label>
-                      <input class="w-full h-10 text-base border-none outline-none p-3 box-border b-[#f0f0f0]" type="text" id="direccion" name="direccion" placeholder="Direccion" required />
+                      <input class="w-full h-10 text-base border-none outline-none p-3 box-border b-[#f0f0f0]" type="text" id="direccion" name="direccion" placeholder="Direccion" value=" <?php echo $datoUsuario['direccion'] ?> " required />
                     </div>
                     <div>
                       <label class="block mb-1 font-bold text-[#333333] " for="nombre">Telefono:</label>
-                      <input class="w-full h-10 text-base border-none outline-none p-3 box-border b-[#f0f0f0]" type="tel" id="telefono" name="telefono" placeholder="telefono" required />
+                      <input class="w-full h-10 text-base border-none outline-none p-3 box-border b-[#f0f0f0]" type="tel" id="telefono" name="telefono" placeholder="telefono" value=" <?php echo $datoUsuario['telefono'] ?>" required />
                     </div>
                     <div>
                       <label class="block mb-1 font-bold text-[#333333] " for="nombre">Email:</label>
@@ -61,22 +61,15 @@ if (mysqli_error($con)) {
                       <select class="w-full h-12 text-base border-none outline-none p-3 box-border b-[#f0f0f0]" id="pago" name="pago" required>
                         <option value="">Seleccione una opción</option>
                         <option value="tarjeta">Tarjeta de crédito o débito</option>
-                        <option value="efectivo">Efectivo</option>
                         <option value="transferencia">
                           Transferencia bancaria
                         </option>
                         <option value="paypal">PayPal</option>
                       </select>
                     </div>
-                    <div>
-                      <label class="block mb-1 font-bold text-[#333333] " for="productos">Listado de productos:</label>
-                      <textarea class=" h-auto resize-y w-full text-base border-none outline-none p-3 box-border b-[#f0f0f0]" id="productos" name="productos" rows="5" cols="40" required>
-
-                      </textarea>
-                    </div>
                     <br />
                     <div>
-                      <button type="submit" class="mt-6 flex justify-center w-1/2 rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
+                      <button type="submit" class="mt-6 flex justify-center w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
                         Finalizar Compra
                       </button>
                     </div>
@@ -100,7 +93,7 @@ if ($_GET['accion'] == 'confirmar_compra') {
   $email = $_POST['email'];
   $metodo_pago = $_POST['pago'];
 
-  
+
   // Actualizar datos del cliente
   $sqlActualizarCliente = "UPDATE clientes SET nombre = '$nombre', apellido = '$apellido', direccion = '$direccion', telefono = '$telefono', email = '$email' WHERE id = $id_usuario";
   $resultadoActualizacion = mysqli_query($con, $sqlActualizarCliente);
@@ -112,26 +105,33 @@ if ($_GET['accion'] == 'confirmar_compra') {
   // Insertar en la tabla ventas
   $sqlInsertarVenta = "INSERT INTO ventas (idCliente, total, metodo_pago, direccion_envio) VALUES ($id_usuario, $total_venta, '$metodo_pago', '$direccion')";
   $resultadoInsercionVenta = mysqli_query($con, $sqlInsertarVenta);
+  if (mysqli_error($con)) {
+    echo "<script>alert('Error no se pudo insertar el registro');</script>";
+  } else {
+    echo "<script>alert('Compra Realizada, Muchas Gracias!!');</script>";
+  }
   $id_compra = mysqli_insert_id($con); //Recuperamos el id de la compra recien creada
 
   $sqlCarrito = "SELECT id_producto, cantidad from carrito_usuarios WHERE id_usuario = $id_usuario";
   $resultadoCarrito = mysqli_query($con, $sqlCarrito);
-  
-  if($resultadoCarrito){
-    while($fila_carrito = mysqli_fetch_assoc($resultadoCarrito)){
+
+  if ($resultadoCarrito) {
+    while ($fila_carrito = mysqli_fetch_assoc($resultadoCarrito)) {
       $producto_id = $fila_carrito['id_producto'];
       $cantidadProductos = $fila_carrito['cantidad'];
+
 
       //Crear registro en la tabla detalleventas
       $sql_detalle = "INSERT INTO detalleventas (idVenta, idProducto, cantProductos, subtotal) values ('$id_compra', '$producto_id', '$cantidadProductos', '$total_venta')";
       $resultado_detalle = mysqli_query($con, $sql_detalle);
 
-      if($resultado_detalle){
+      if ($resultado_detalle) {
         //Limpiar el carrito una vez generado el detalle
         $sqlLimpiarCarrito = "DELETE FROM carrito_usuarios WHERE id_usuario = $id_usuario ";
         $resultadoLimpiarCarrito = mysqli_query($con, $sqlLimpiarCarrito);
       }
     }
+
     echo "<script>window.location='index.php';</script>";
   }
 }

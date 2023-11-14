@@ -62,6 +62,9 @@ if(isset($_GET['salir'])){
                     </div>
                     <div class="flex items-center justify-between mt-3 ">
                         <button class="bg-[--color-primary] text-white font-bold py-2 px-4 rounded mb-2">Iniciar Sesion</button>
+                        <button class="bg-[--color-primary] text-white font-bold py-2 px-4 rounded mb-2">
+                            <a href="index.php?modulo=registro">No tiene cuenta? Registrarse</a>
+                        </button>
                     </div>
                 </form>
             </div>

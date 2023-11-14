@@ -91,34 +91,48 @@
         </p>
         <div class="flex items-center justify-center">
           <p class="text-[#f8fafc] text-sm leading-none dark:text-gray-300 mr-3">
-            <?php echo $dato['almacenamiento']?>
+            <?php echo $dato['almacenamiento'] ?>
           </p>
           <svg class="text-gray-300 dark:text-white cursor-pointer" width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1 1L5 5L1 9" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </div>
       </div>
-      <a href="index.php?modulo=carrito&accion=agregar_carrito&id=<?php echo $dato['id']?>&precio=<?php echo $dato['precio']?>" class="text-[#f8fafc] dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-base flex items-center justify-center leading-none bg-gray-800 w-full py-4 hover:bg-gray-700 focus:outline-none">
-        Añadir al Carrito
-      </a>
+      <?php
+      if (!empty($_SESSION)) {
+      ?>
+        <a href="index.php?modulo=carrito&accion=agregar_carrito&id=<?php echo $dato['id'] ?>&precio=<?php echo $dato['precio'] ?>" class="text-[#f8fafc] dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-base flex items-center justify-center leading-none bg-gray-800 w-full py-4 hover:bg-gray-700 focus:outline-none">
+          Añadir al Carrito
+        </a>
+      <?php
+      } else {
+      ?>
+        <a href="index.php?modulo=registro" class="text-[#f8fafc] dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-base flex items-center justify-center leading-none bg-gray-800 w-full py-4 hover:bg-gray-700 focus:outline-none">
+          <p>Debe estar registrado para realizar la compra</p>
+        </a>
+      <?php
+
+      }
+      ?>
+
       <div>
         <p class="text-[#f8fafc] xl:pr-48 text-base lg:leading-tight leading-normal dark:text-gray-300 mt-7">
-        <?php echo $dato['descripcion']?>
+          <?php echo $dato['descripcion'] ?>
         </p>
         <p class="text-[#f8fafc] text-base leading-4 mt-7 dark:text-gray-300">
-          Código de Producto: <?php echo $dato['codigo']?>
+          Código de Producto: <?php echo $dato['codigo'] ?>
         </p>
         <p class="text-[#f8fafc] text-base leading-4 mt-4 dark:text-gray-300">
-          Altura: <?php echo $dato['altura']?>
+          Altura: <?php echo $dato['altura'] ?>
         </p>
         <p class="text-[#f8fafc] text-base leading-4 mt-4 dark:text-gray-300">
-          Ancho: <?php echo $dato['ancho']?>
+          Ancho: <?php echo $dato['ancho'] ?>
         </p>
         <p class="text-[#f8fafc] text-base leading-4 mt-4 dark:text-gray-300">
-          Peso: <?php echo $dato['peso']?>
+          Peso: <?php echo $dato['peso'] ?>
         </p>
         <p class="text-[#f8fafc] md:w-96 text-base leading-normal dark:text-gray-300 mt-4">
-          Altura x Ancho: <?php echo $dato['altura']?> x <?php echo $dato['ancho']?>
+          Altura x Ancho: <?php echo $dato['altura'] ?> x <?php echo $dato['ancho'] ?>
         </p>
       </div>
       <div>

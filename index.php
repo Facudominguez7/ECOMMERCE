@@ -15,6 +15,7 @@ conectar();
   <link rel="stylesheet" href="./src/estilos/carrousel.css" />
   <link rel="stylesheet" href="./src/estilos/wafloatbox-0.2.css" />
   <script defer src="./src/JavaScript/carrousel.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
 </head>
 
 <body class="h-full bg-[--color-primary]">
@@ -23,31 +24,32 @@ conectar();
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
           <div class="flex items-center">
-            <div class="flex-shrink-0">
-              <img class="h-8 w-8" src="./src/imagenes/Logo_tienda.jpeg" alt="Bowie.com" />
-            </div>
             <div class="hidden md:block">
               <div class="ml-10 flex items-baseline space-x-4">
                 <a href="index.php" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]" aria-current="page">Inicio</a>
-                <a href="index.php?modulo=listado_tabla" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]">Tabla de Productos</a>
                 <a href="index.php?modulo=listado_box" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]">Box de Productos</a>
                 <?php
-                if (isset($_SESSION['nombre_usuario'])){
+                if (isset($_SESSION['nombre_usuario'])) {
                   if ($_SESSION['rol'] == 2) {
-                    ?>
-                      <a href="index.php?modulo=usuario" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]">Administrar Usuarios</a>
-                    <?php
-                    }
-                } 
+                ?>
+                    <a href="index.php?modulo=usuario" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]">Administrar Usuarios</a>
+                    <a href="index.php?modulo=listado_tabla" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]">Tabla de Productos</a>
+                <?php
+                  }
+                }
                 ?>
                 <?php
                 if (!empty($_SESSION['nombre_usuario'])) {
                 ?>
                   <a href="index.php?modulo=registro" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary] hidden">Registrarse</a>
                   <a href="index.php?modulo=iniciar_sesion" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary] hidden">Iniciar Sesion</a>
-                  <p>Bienvenido <?php echo $_SESSION['nombre_usuario']; ?></p>
+                  <a href="index.php?modulo=miscompras" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]">Mis Compras</a>
                   <a href="index.php?modulo=iniciar_sesion&salir=ok" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]">Cerrar Sesión</a>
-                  <a href="index.php?modulo=carrito" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]">Carrito</a>
+                  <div class="flex-shrink-0">
+                    <a href="index.php?modulo=carrito">
+                      <img class="h-8 w-8" src="./src/imagenes/Carrito.png" alt="Imagen de Carrito de compra" />
+                    </a>
+                  </div>
                 <?php
                 } else {
                 ?>
@@ -95,10 +97,17 @@ conectar();
     ?>
       <header class="bg-[--color-primary] shadow">
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-3 lg:px-8">
-          <h1 class="text-3xl font-bold tracking-tight flex justify-center text-[#f8fafc]">
-            Bienvenidos
-          </h1>
-          <br />
+          <?php
+          if (!empty($_SESSION['nombre_usuario'])) {
+          ?>
+            <h1 class="text-3xl font-bold tracking-tight flex justify-center text-[#f8fafc]">
+              Bienvenido <?php echo $_SESSION['nombre_usuario']; ?>
+            </h1>
+            <br />
+          <?php
+          }
+          ?>
+
           <hr class="text-[#f8fafc]" />
         </div>
       </header>
