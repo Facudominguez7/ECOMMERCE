@@ -10,7 +10,7 @@
     <div class="container is-fluid">
         <div class="col-xs-12">
             <h1 class="text-3xl mt-6 font-bold tracking-tight flex justify-center text-[#f8fafc]">
-                Cliente: <?php echo $_SESSION['nombre_usuario']; ?>
+                Administrador: <?php echo $_SESSION['nombre_usuario']; ?>
             </h1>
             <br />
             <hr class="bg-white">
@@ -31,8 +31,8 @@
                 </thead>
                 <tbody>
                     <?php
-                    $id_usuario = $_SESSION['id'];
-                    $SQL = "SELECT * FROM ventas where idCliente = $id_usuario";
+                    $id_usuario = $_SESSION['rol'];
+                    $SQL = "CALL MostrarVentas($id_usuario)";
                     $dato = mysqli_query($con, $SQL);
                     if ($dato->num_rows > 0) {
                         while ($fila = mysqli_fetch_array($dato)) {
@@ -53,7 +53,7 @@
                     } else {
                         ?>
                         <tr class="text-center">
-                            <td colspan="16">No existen registros</td>
+                            <td colspan="16">No existen Ventas</td>
                         </tr>
                     <?php
                     }

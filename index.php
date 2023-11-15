@@ -34,6 +34,7 @@ conectar();
                 ?>
                     <a href="index.php?modulo=usuario" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]">Administrar Usuarios</a>
                     <a href="index.php?modulo=listado_tabla" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]">Tabla de Productos</a>
+                    <a href="index.php?modulo=Todas_Las_Ventas" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-[--color-primary]">Ventas Totales</a>
                 <?php
                   }
                 }
