@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-11-2023 a las 20:08:35
+-- Tiempo de generación: 15-11-2023 a las 20:56:47
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -33,9 +33,11 @@ CREATE DEFINER=`` PROCEDURE `MostrarVentas` (IN `userID` INT)   BEGIN
 
     -- Si el usuario es administrador (rol 2), mostrar todas las ventas
     IF userRole = 2 THEN
-        SELECT * FROM ventas;
+        SELECT v.*, c.email AS email_cliente
+        FROM ventas v
+        INNER JOIN clientes c ON v.idCliente = c.id;
     ELSE
-        SELECT 'No tiene permisos para acceder a esta información' AS mensaje;
+        SELECT 'No tiene permisos de administrador para acceder a esta información' AS mensaje;
     END IF;
 END$$
 

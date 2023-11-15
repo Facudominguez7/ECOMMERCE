@@ -26,7 +26,7 @@
                         <th>Total</th>
                         <th>Metodo de Pago</th>
                         <th>Dirección</th>
-                        <th>Acciones</th>
+                        <th>Email del Cliente</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,9 +44,7 @@
                                 <td>$<?php echo number_format($fila['total'], 2, ',', '.'); ?></td>
                                 <td><?php echo $fila['metodo_pago']; ?></td>
                                 <td><?php echo $fila['direccion_envio']; ?></td>
-                                <td>
-                                    <a href="index.php?modulo=Detalle_Venta&accion=ver_detalle&idVenta=<?php echo $fila['id']; ?>" class="text-white">Ver Detalles</a>
-                                </td>
+                                <td><?php echo $fila['email_cliente']; ?></td>
                             </tr>
                         <?php
                         }
