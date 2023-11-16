@@ -30,12 +30,11 @@ if ($_GET['accion'] == 'ver_detalle') {
                                 }
                             ?>
                                 <div class="bg-gray-200 mx-auto p-4 rounded flex justify-center items-center w-1/2">
-                                    <img src="<?php echo $primeraImagen ?>" alt="Producto 1" class="w-16 h-16 rounded-full mr-4">
+                                    <img src="<?php echo $primeraImagen ?>" alt="Producto 1" class="w-1/2 rounded-full mr-4">
                                     <div>
-                                        <h2 class="font-semibold"><?php echo $fila['nombre_producto'] ?></h2>
+                                        <h2 class="font-bold text-xl"><?php echo $fila['nombre_producto'] ?></h2>
                                         <p class="text-gray-600">Precio: $<?php echo number_format($fila['precio_producto'], 2, ',', '.'); ?></p>
                                         <p class="text-gray-600">Cantidad: <?php echo $fila['cantidad_comprada'] ?></p>
-                                        <p class="text-gray-600">Subtotal: <?php echo number_format($fila['total'], 2, ',', '.'); ?></p>
                                     </div>
                                 </div>
                             <?php
@@ -43,7 +42,10 @@ if ($_GET['accion'] == 'ver_detalle') {
                             ?>
                         </div>
                     </div>
+
                 </div>
+
+
             </div>
 <?php
         }

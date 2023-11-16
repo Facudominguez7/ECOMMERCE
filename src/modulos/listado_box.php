@@ -56,17 +56,18 @@
                       </a>
                     <?php
                     } else {
-                      ?>
-                        <a href="index.php?modulo=registro">
+                    ?>
+                      <a href="index.php?modulo=registro">
                         <p>Debe estar registrado para realizar la compra</p>
-                        </a>
-                        
-                      <?php
+                      </a>
+
+                    <?php
                     }
                     ?>
 
 
                   </div>
+
                 </div>
               </div>
 
@@ -76,6 +77,11 @@
                   <p class="text-lg font-bold text-blue-500">$<?php echo $dato['precio']; ?></p>
                 </div>
 
+              </div>
+              <div class="flex justify-center mb-3">
+                <button type="submit" class="mt-6 flex justify-center w-1/2 rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
+                  <a href="index.php?modulo=producto&id=<?php echo $dato['id'] ?>">Ver detalles</a>
+                </button>
               </div>
             </a>
           </article>

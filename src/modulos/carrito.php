@@ -41,12 +41,43 @@ if (isset($_GET['accion']) && isset($_GET['precio'])) {
         echo "<script>window.location='index.php?modulo=carrito';</script>";
     }
 }
+if(isset($_GET['accion'])){
+    if ($_GET['accion'] == 'eliminar'){
+        if(isset($_GET['id'])){
+            $id_producto = $_GET['id'];
+            $id_usuario = $_SESSION['id'];
+            $sql = "DELETE FROM carrito_usuarios where id_producto = '$id_producto' AND id_usuario = '$id_usuario'";
+            $resultadoBorrar = mysqli_query($con, $sql);
+            if(mysqli_error($con)){
+                echo "<script> alert('No se ha podido eliminar el producto del carrito');</script>";
+            } else {
+                echo "<script> alert('Producto eliminado del carrito');</script>";
+            }
+        }
+    }
+    if ($_GET['accion'] == 'limpiar') {
+        $sqlLimpiar = "CALL EliminarCarritosUsuarios()";
+        $conexion = mysqli_query($con, $sqlLimpiar);
+        if (mysqli_error($con)) {
+            "<script> alert('ERROR NO SE PUDO LIMPIAR EL CARRITO);</script>";
+        } else {
+            "<script> alert('Carrito limpiado');</script>";
+        }
+        echo "<script> alert('Carrito limpiado');</script>";
+    }
+    
+    echo "<script>window.location='index.php?modulo=listado_box';</script>";
+    
+}
+
 
 ?>
 
-
+<head>
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+</head>
 <div class="h-auto bg-[--color-primary] pt-20">
-    <h1 class="mb-10 text-center text-2xl font-bold">Items del Carrito</h1>
+    <h1 class="mb-10 text-center text-2xl font-bold text-white">Items del Carrito</h1>
     <?php
     $id_usuario = $_SESSION['id'];
     $sqlObtenerProductosDelCarrito = "
@@ -92,7 +123,10 @@ if (isset($_GET['accion']) && isset($_GET['precio'])) {
                                     </div>
                                     <div class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                                         <div class="flex items-center border-gray-100">
-                                            <input id="cantidad-<?php echo $datoProducto['id'] ?>" class="h-8 w-14 border bg-white text-center text-xl outline-none" type="text" value="<?php echo $datoProducto['cantidad_en_carrito'] ?>" min="1" style="color: black;" />
+                                            <input id="cantidad-<?php echo $datoProducto['id'] ?>" class="h-8 mr-2 w-14 border bg-white text-center text-xl outline-none" type="text" value="<?php echo $datoProducto['cantidad_en_carrito'] ?>" min="1" style="color: black;" />
+                                            <a href="index.php?modulo=carrito&accion=eliminar&id=<?php echo $datoProducto['id'] ?>">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
                                         </div>
                                     </div>
 
@@ -131,9 +165,14 @@ if (isset($_GET['accion']) && isset($_GET['precio'])) {
                         </div>
                     </div>
                     <div class="flex justify-center mb-3">
-                            <button type="submit" class="mt-6 flex justify-center w-1/2 rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
-                                <a href="index.php?modulo=comprar&accion=continuar&id=<?php echo $id_usuario?>&totalcompra=<?php echo $total?>">Continuar</a>
-                            </button>
+                        <button type="submit" class="mt-6 flex justify-center w-1/2 rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
+                            <a href="index.php?modulo=comprar&accion=continuar&id=<?php echo $id_usuario ?>&totalcompra=<?php echo $total ?>">Continuar</a>
+                        </button>
+                    </div>
+                    <div class="flex justify-center mb-3">
+                        <button type="submit" class="mt-6 flex justify-center w-1/2 rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
+                            <a href="index.php?modulo=carrito&accion=limpiar">Limpiar Carrito</a>
+                        </button>
                     </div>
                 </div>
             </div>

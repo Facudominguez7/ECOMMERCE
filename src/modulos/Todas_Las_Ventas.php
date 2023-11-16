@@ -14,7 +14,7 @@
             </h1>
             <br />
             <hr class="bg-white">
-            <h3 class="text-white">Compras Realizadas</h3>
+            <h3 class="text-white">Ventas Realizadas</h3>
             <br>
             <br>
             <br>
@@ -32,35 +32,58 @@
                 <tbody>
                     <?php
                     $id_usuario = $_SESSION['rol'];
-                    $SQL = "CALL MostrarVentas($id_usuario)";
+                    $SQL = "CALL MostrarVentasConConteo($id_usuario)";
                     $dato = mysqli_query($con, $SQL);
-                    if ($dato->num_rows > 0) {
-                        while ($fila = mysqli_fetch_array($dato)) {
+                    // Obtener el mensaje de cantidad de ventas
+                    $mensajeVentas = "";
+                    if (mysqli_error($con)) {
+                        echo "Hola";
+                    } else {
+                        if (mysqli_more_results($con)) {
+                            mysqli_next_result($con); // Moverse al siguiente resultado (mensaje)
+                            if ($resultado = mysqli_store_result($con)) {
+                                $row = mysqli_fetch_assoc($resultado);
+                                $mensajeVentas = $row['mensaje'];
+                                mysqli_free_result($resultado);
+                            }
+                        }
+                        if ($dato->num_rows > 0) {
+                            while ($fila = mysqli_fetch_assoc($dato)) {
 
                     ?>
-                            <tr>
-                                <td><?php echo $fila['id']; ?></td>
-                                <td><?php echo $fila['fecha']; ?></td>
-                                <td>$<?php echo number_format($fila['total'], 2, ',', '.'); ?></td>
-                                <td><?php echo $fila['metodo_pago']; ?></td>
-                                <td><?php echo $fila['direccion_envio']; ?></td>
-                                <td><?php echo $fila['email_cliente']; ?></td>
+                                <tr>
+                                    <td><?php echo $fila['id']; ?></td>
+                                    <td><?php echo $fila['fecha']; ?></td>
+                                    <td>$<?php echo number_format($fila['total'], 2, ',', '.'); ?></td>
+                                    <td><?php echo $fila['metodo_pago']; ?></td>
+                                    <td><?php echo $fila['direccion_envio']; ?></td>
+                                    <td><?php echo $fila['email_cliente']; ?></td>
+                                </tr>
+                            <?php
+                            }
+                        } else {
+                            ?>
+                            <tr class="text-center">
+                                <td colspan="16">No existen Ventas</td>
                             </tr>
-                        <?php
-                        }
-                    } else {
-                        ?>
-                        <tr class="text-center">
-                            <td colspan="16">No existen Ventas</td>
-                        </tr>
                     <?php
+
+                        }
                     }
                     ?>
 
+
             </table>
         </div>
-    </div>
-</div>
+        <div class="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
+            <div class="mb-2 flex justify-between">
+                <p class="text-gray-700 font-bold"><?php echo $mensajeVentas ?></p>
+            </div>
 
+        </div>
+
+    </div>
+
+</div>
 
 </html>

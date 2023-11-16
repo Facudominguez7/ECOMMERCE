@@ -41,20 +41,22 @@ if (
                 echo ('Error al crear el directorio: ' . $carpeta_carga);
             }
         }
-
+        
+        //Foreach que contiene los nombres temporales de los archivos subidos por el usuario
         foreach ($_FILES["lista"]["tmp_name"] as $key => $tmp_name) {
-            $fileName = basename($_FILES["lista"]["name"][$key]);
-            $targetFile = $carpeta_carga . $fileName;
+            //basename devuelve la ultima parte de la ruta
+            $nombreArchivo = basename($_FILES["lista"]["name"][$key]);
+            $archivoDestino = $carpeta_carga . $nombreArchivo;
 
-            echo "Directorio de destino: " . $carpeta_carga . "<br>";
-            echo "Archivo de destino: " . $targetFile . "<br>";
+             "Directorio de destino: " . $carpeta_carga . "<br>";
+             "Archivo de destino: " . $archivoDestino. "<br>";
 
-            // Mueve la imagen al directorio de destino
-            if (move_uploaded_file($tmp_name, $targetFile)) {
-                // Insertar datos en la tabla de imágenes
+            // Mueve la imagen al directorio de destino del temporal
+            if (move_uploaded_file($tmp_name, $archivoDestino)) {
+                // Insertar datos en la tabla de productos_files
                 $sqlInsertImagen = "INSERT INTO productos_files (producto_id, nombre_archivo) VALUES (?, ?)";
                 $stmtImagen = mysqli_prepare($con, $sqlInsertImagen);
-                mysqli_stmt_bind_param($stmtImagen, "ss", $producto_id, $fileName);
+                mysqli_stmt_bind_param($stmtImagen, "ss", $producto_id, $nombreArchivo);
                 mysqli_stmt_execute($stmtImagen);
 
                 if (mysqli_error($con)) {
@@ -63,7 +65,7 @@ if (
                     echo "<script>alert('Registro de imagen insertado en productos_files con éxito');</script>";
                 }
             } else {
-                echo "<script>alert('Error al mover la imagen al directorio de destino: " . $targetFile . "');</script>";
+                echo "<script>alert('Error al mover la imagen al directorio de destino: " . $archivoDestino . "');</script>";
             }
         }
 
@@ -107,7 +109,7 @@ if (
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="precio"> Precio </label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="precio" name="precio" type="text" placeholder="Precio del producto" required>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="precio" name="precio" type="number" placeholder="Precio del producto" required>
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="descripcion"> Descripcion </label>
@@ -127,15 +129,15 @@ if (
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="altura"> Altura </label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="altura" name="altura" type="text" placeholder="Altura del producto en mm" required>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="altura" name="altura" type="number" placeholder="Altura del producto en mm" required>
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="ancho"> Ancho </label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="ancho" name="ancho" type="text" placeholder="Ancho del producto en mm" required>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="ancho" name="ancho" type="number" placeholder="Ancho del producto en mm" required>
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="peso"> Peso </label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="peso" name="peso" type="text" placeholder="Peso del producto en gramos" required>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="peso" name="peso" type="number" placeholder="Peso del producto en gramos" required>
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="imagen"> Agregar Fotos </label>
@@ -152,13 +154,13 @@ if (
                         function mostrarVistaPrevia() {
                             var input = document.getElementById("lista");
                             var vistaPreviaContainer = document.getElementById("vista_previa_container");
+                            //Borra el contenido del elemento 
                             vistaPreviaContainer.innerHTML = "";
 
                             if (input.files && input.files.length > 0) {
                                 for (var i = 0; i < input.files.length; i++) {
                                     var imagenPrevia = document.createElement("img");
                                     imagenPrevia.src = URL.createObjectURL(input.files[i]);
-                                    imagenPrevia.classList.add("vista-previa-imagen");
                                     vistaPreviaContainer.appendChild(imagenPrevia);
                                 }
                             }

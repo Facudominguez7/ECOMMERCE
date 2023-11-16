@@ -70,7 +70,6 @@ conectar();
         <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
           <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
           <a href="index.php" class="text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Inicio</a>
-          <a href="index.php?modulo=listado_tabla" class="text-gray-300 h hover:text-white rounded-md px-3 py-2 text-sm font-medium">Tabla de Productos</a>
           <a href="index.php?modulo=listado_box" class="text-gray-300 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Box de Productos</a>
           <?php
           if (isset($_SESSION['nombre_usuario'])) {
@@ -124,8 +123,6 @@ conectar();
           <?php
           }
           ?>
-
-          <hr class="text-[#f8fafc]" />
         </div>
       </header>
       <main class="bg-[--color-primary]">
@@ -133,9 +130,9 @@ conectar();
         <div class="mx-auto w-full max-w-2xl flex justify-center items-stretch pb-4 px-4 sm:px-6 lg:px-8">
           <div class="w-full bg-[--color-nav] rounded-3xl overflow-x-hidden">
             <div class="grande w-300p flex flex-row justify-start items-center">
-              <img src="./src/Imagenes/SliderS23u.webp" alt="Imagen Slider s23" class="img" />
-              <img src="./src/Imagenes/Z_flip5_slider.webp" alt="Imagen Slider Zflip5" class="img" />
-              <img src="./src/Imagenes/Z_fold_5_Slider.webp" alt="Imagen Z fold 5" class="img" />
+              <img src="./src/imagenes/SliderS23u.webp" alt="Imagen Slider s23" class="img" />
+              <img src="./src/imagenes/Z_flip5_slider.webp" alt="Imagen Slider Zflip5" class="img" />
+              <img src="./src/imagenes/Z_fold_5_Slider.webp" alt="Imagen Z fold 5" class="img" />
             </div>
 
             <ul class="w-full p-4 flex flex-row justify-center items-center">
@@ -145,6 +142,85 @@ conectar();
             </ul>
           </div>
         </div>
+        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-3 lg:px-8">
+          <h1 class="text-3xl font-bold tracking-tight flex justify-center text-[#f8fafc]">
+            Producto Destacado del Año !!
+          </h1>
+          <br>
+          <br>
+          <hr class="text-[#f8fafc]" />
+        </div>
+
+
+        <?php
+        $sql = "SELECT * FROM productos where nombre = 'Apple iPhone 12 Pro'";
+        $conexion = mysqli_query($con, $sql);
+        if (mysqli_num_rows($conexion) != 0) {
+          echo '<div class="mx-auto max-w-7xl flex flex-wrap justify-center p-6 gap-6">';
+          while ($dato = mysqli_fetch_array($conexion)) {
+            // Obtener la primera imagen de la carpeta del producto
+            $carpetaProducto = "imagenes/productos/" . $dato['id'] . "/";
+            $imagenesProducto = glob($carpetaProducto . "*.{jpg,jpeg,png,gif,webp}", GLOB_BRACE);
+
+            if (!empty($imagenesProducto)) {
+              $primeraImagen = $imagenesProducto[0];
+            } else {
+              // Si no hay imágenes en la carpeta, puedes proporcionar una imagen predeterminada o manejarlo según tus necesidades.
+              $primeraImagen = "../imagenes/default.jpg";
+            }
+        ?>
+            <article id="articulo" class="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300 sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/3 mb-6 px-4 -ml-8">
+              <a href="index.php?modulo=producto&id=<?php echo $dato['id'] ?>">
+                <div class="relative flex items-center overflow-hidden rounded-xl">
+                  <img src="<?php echo $primeraImagen; ?>" alt="<?php echo $dato['nombre']; ?>" class="w-auto h-auto object-cover" />
+                  <div class="absolute bottom-0 left-0 right-0 flex items-center justify-between p-2 bg-blue-500 text-white opacity-80 hover:opacity-100 transition duration-300">
+                    <div class="flex items-center space-x-1.5">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                      </svg>
+                      <?php
+                      if (!empty($_SESSION['nombre_usuario'])) {
+                      ?>
+                        <a href="index.php?modulo=carrito&accion=agregar_carrito&precio=<?php echo $dato['precio'] ?>&id=<?php echo $dato['id'] ?>">
+                          <input type="button" class="text-sm">Añadir al Carrito
+                        </a>
+                      <?php
+                      } else {
+                      ?>
+                        <a href="index.php?modulo=registro">
+                          <p>Debe estar registrado para realizar la compra</p>
+                        </a>
+
+                      <?php
+                      }
+                      ?>
+
+
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="mt-1 p-2">
+                  <h2 class="text-slate-700"><?php echo $dato['nombre']; ?></h2>
+                  <div class="mt-3 flex items-end justify-between">
+                    <p class="text-lg font-bold text-blue-500">$<?php echo $dato['precio']; ?></p>
+                  </div>
+
+                </div>
+                <div class="flex justify-center mb-3">
+                  <button type="submit" class="mt-6 flex justify-center w-1/2 rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
+                    <a href="index.php?modulo=producto&id=<?php echo $dato['id'] ?>">Ver detalles</a>
+                  </button>
+                </div>
+              </a>
+            </article>
+        <?php
+          }
+          echo '</div>';
+        }
+        ?>
+        ?>
 
       </main>
 
