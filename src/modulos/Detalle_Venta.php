@@ -1,12 +1,12 @@
 <?php
 if ($_GET['accion'] == 'ver_detalle') {
     $id_usuario = $_SESSION['id'];
-
+    $id_venta = $_GET['idVenta'];
     $sql = "SELECT p.id as idProducto, p.precio AS precio_producto, p.nombre AS nombre_producto, dv.cantProductos AS cantidad_comprada, v.total
     FROM detalleventas dv
     INNER JOIN productos p ON dv.idProducto = p.id
     INNER JOIN ventas v ON dv.idVenta = v.id
-    WHERE v.idCliente = $id_usuario";
+    WHERE v.idCliente = $id_usuario AND dv.idVenta = $id_venta";
     $dato = mysqli_query($con, $sql);
     if (mysqli_error($con)) {
         echo "<script> alert('ERROR NO SE PUDO OBTENER DATOS DE LA TABLA DETALLEVENTAS);</script>";
@@ -50,30 +50,3 @@ if ($_GET['accion'] == 'ver_detalle') {
     }
 }
 ?>
-
-<div class="bg-blue-500">
-    <div class="bg-white p-8 rounded shadow-md w-3/4 h-3/4 mx-auto my-8">
-        <h1 class="text-2xl font-bold mb-4">Detalle de la Venta</h1>
-        <div class="flex">
-            <div class="w-1/2">
-                <h2 class="text-lg font-semibold">Silla De Escritorio Portatil Con Apoyabrazos Negra Con Tapizado De Mesh</h2>
-                <p class="text-gray-600">Entregado</p>
-                <p class="text-gray-600">Llego el 13 de noviembre</p>
-                <p class="text-gray-600">Podés devolverlo hasta el 3 de diciembre</p>
-            </div>
-            <div class="w-1/2">
-                <h2 class="text-lg font-semibold text-right">Detalle de compra</h2>
-                <p class="text-gray-600 text-right">Producto: $999.99</p>
-                <p class="text-gray-600 text-right">Envío: $100.00</p>
-                <p class="text-gray-600 text-right">Impuestos: $200.00</p>
-                <p class="text-gray-600 text-right">Pagado: $1299.99</p>
-            </div>
-        </div>
-        <div class="mt-4">
-            <h2 class="text-lg font-semibold">Detalles de pago y envío</h2>
-            <p class="text-gray-600">Método de pago: Tarjeta de crédito</p>
-            <p class="text-gray-600">Dirección de envío: Calle Falsa 123, Posadas, Misiones, Argentina</p>
-            <p class="text-gray-600">Número de seguimiento: 1234567890</p>
-        </div>
-    </div>
-</div>

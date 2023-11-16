@@ -52,10 +52,13 @@ if (mysqli_error($con)) {
                       <label class="block mb-1 font-bold text-[#333333] " for="nombre">Telefono:</label>
                       <input class="w-full h-10 text-base border-none outline-none p-3 box-border b-[#f0f0f0]" type="tel" id="telefono" name="telefono" placeholder="telefono" value=" <?php echo $datoUsuario['telefono'] ?>" required />
                     </div>
-                    <div>
+                    <!--
+                      <div>
                       <label class="block mb-1 font-bold text-[#333333] " for="nombre">Email:</label>
                       <input class="w-full h-10 text-base border-none outline-none p-3 box-border b-[#f0f0f0]" type="email" id="email" name="email" placeholder="Email" value=" <?php echo $datoUsuario['email'] ?>" required />
                     </div>
+                    -->
+                    
                     <div>
                       <label class="block mb-1 font-bold text-[#333333] " for="pago">Medio de pago:</label>
                       <select class="w-full h-12 text-base border-none outline-none p-3 box-border b-[#f0f0f0]" id="pago" name="pago" required>
@@ -90,12 +93,11 @@ if ($_GET['accion'] == 'confirmar_compra') {
   $apellido = trim($_POST['apellido']);
   $direccion = trim($_POST['direccion']);
   $telefono = $_POST['telefono'];
-  $email = $_POST['email'];
   $metodo_pago = $_POST['pago'];
 
 
   // Actualizar datos del cliente
-  $sqlActualizarCliente = "UPDATE clientes SET nombre = '$nombre', apellido = '$apellido', direccion = '$direccion', telefono = '$telefono', email = '$email' WHERE id = $id_usuario";
+  $sqlActualizarCliente = "UPDATE clientes SET nombre = '$nombre', apellido = '$apellido', direccion = '$direccion', telefono = '$telefono' WHERE id = $id_usuario";
   $resultadoActualizacion = mysqli_query($con, $sqlActualizarCliente);
 
   if (!$resultadoActualizacion) {
