@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 16-11-2023 a las 17:46:32
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Servidor: localhost:3306
+-- Tiempo de generación: 17-11-2023 a las 14:12:37
+-- Versión del servidor: 10.5.20-MariaDB
+-- Versión de PHP: 7.3.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,8 +18,62 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `ecommerce`
+-- Base de datos: `id21421150_ucp`
 --
+
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`id21421150_facu`@`%` PROCEDURE `EliminarCarritosUsuarios` ()   BEGIN
+    DECLARE exit handler for sqlexception
+    BEGIN
+        ROLLBACK;
+        RESIGNAL;
+    END;
+
+    DECLARE exit handler for sqlwarning
+    BEGIN
+        ROLLBACK;
+        RESIGNAL;
+    END;
+
+    START TRANSACTION;
+    DELETE FROM carrito_usuarios;
+    COMMIT;
+END$$
+
+CREATE DEFINER=`id21421150_facu`@`%` PROCEDURE `MostrarVentasConConteo` (IN `userID` INT)  DETERMINISTIC BEGIN
+    DECLARE userRole INT;
+    DECLARE ventasCount INT;
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE cur CURSOR FOR SELECT COUNT(*) FROM ventas;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+    -- Obtener el rol del usuario desde la tabla permisos
+    SELECT id INTO userRole FROM permisos WHERE id = userID;
+
+    -- Si el usuario es administrador (rol 2), mostrar todas las ventas
+    IF userRole = 2 THEN
+        OPEN cur;
+        ventas_loop: LOOP
+            FETCH cur INTO ventasCount;
+            IF done THEN
+                LEAVE ventas_loop;
+            END IF;
+          
+        END LOOP;
+        CLOSE cur;
+        SELECT v.*, c.email AS email_cliente
+        FROM ventas v
+        INNER JOIN clientes c ON v.idCliente = c.id;
+          SELECT CONCAT('La cantidad de ventas es de: ', ventasCount) AS mensaje;
+    ELSE
+        SELECT 'No tiene permisos de administrador para acceder a esta información' AS mensaje;
+    END IF;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -47,9 +101,9 @@ CREATE TABLE `clientes` (
   `clave` varchar(50) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `rol` int(11) NOT NULL,
-  `apellido` varchar(50) NOT NULL,
-  `direccion` varchar(50) NOT NULL,
-  `telefono` int(11) NOT NULL
+  `apellido` varchar(50) DEFAULT NULL,
+  `direccion` varchar(50) DEFAULT NULL,
+  `telefono` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -58,8 +112,16 @@ CREATE TABLE `clientes` (
 
 INSERT INTO `clientes` (`id`, `email`, `clave`, `nombre`, `rol`, `apellido`, `direccion`, `telefono`) VALUES
 (1, 'facudominguez457@gmail.com', '123', 'Facundo', 2, 'Dominguez', 'Queirel 3806', 1548171),
-(2, 'Dominguezfacu10@hotmail.com', '1234', 'Pedro', 1, 'dsfsfsdfs', 'dsdsfsdf', 14718718),
-(5, 'Santino@gmail.com', '123456', 'Santino', 1, 'fsdsgfd', 'defadsfsd', 1787815);
+(2, 'Dominguezfacu10@hotmail.com', '1234', 'Pedro', 2, 'dsfsfsdfs', 'dsdsfsdf', 14718718),
+(5, 'Santino@gmail.com', '123456', 'Santino', 1, 'fsdsgfd', 'defadsfsd', 1787815),
+(6, 'hola@gmail.com', '123', 'dfsf', 1, NULL, NULL, NULL),
+(7, 'lagarto@si', 'lagarto', 'Lagarto', 1, 'Lagarto', 'Que te importa', 69),
+(8, 'pedrito@si', '123', 'Pedritototo', 1, 'Santos', 'Calle pedrito', 375401),
+(9, 'yelenkaannelmaroseck2@gmail.com', '1234', 'yelenka', 1, NULL, NULL, NULL),
+(10, 'IBAELTERCERO@hotmail.com', 'nashe', 'MARTINEZ', 1, NULL, NULL, NULL),
+(11, 'ernesto@si', '123', 'Ernesto', 1, 'dsada', 'sadad', 1471),
+(12, 'camilagatti10@gmail.com', 'pekJar-9kokgi-vogmez', 'sol', 1, NULL, NULL, NULL),
+(13, 'mariasolgatti1@gmail.com', 'faculindo', 'sol gatti', 1, 'gatti', 'santa catalina 6029', 830945);
 
 -- --------------------------------------------------------
 
@@ -83,10 +145,19 @@ INSERT INTO `detalleventas` (`id`, `idProducto`, `idVenta`, `cantProductos`, `su
 (21, 407, 25, 2, 512998),
 (22, 408, 25, 1, 512998),
 (23, 408, 26, 1, 213000),
-(24, 413, 27, 1, 344000),
 (25, 411, 28, 1, 302999),
 (26, 408, 29, 1, 213000),
-(27, 411, 30, 1, 302999);
+(27, 411, 30, 1, 302999),
+(28, 408, 31, 1, 213000),
+(30, 414, 33, 1, 2002999),
+(31, 408, 34, 1, 213000),
+(32, 408, 35, 1, 2212999),
+(33, 414, 35, 1, 2212999),
+(34, 414, 36, 1, 2302998),
+(35, 411, 36, 1, 2302998),
+(36, 407, 37, 1, 362999),
+(37, 408, 37, 1, 362999),
+(38, 414, 38, 1, 2002999);
 
 -- --------------------------------------------------------
 
@@ -135,8 +206,8 @@ INSERT INTO `productos` (`id`, `nombre`, `precio`, `descripcion`, `color`, `alma
 (408, 'iphone xs', 210000, 'iphone xs, bateria 81%', 'dorado', '64gb', '23445567', '100mm', '60mm', '90g'),
 (411, 'Celular Samsung Galaxy S10e', 299999, 'El Samsung Galaxy S10e es un smartphone de alta gama que te ofrece lo mejor de la tecnología Samsung en un diseño compacto y elegante. Con su pantalla Dynamic AMOLED de 5.8 pulgadas, podrás disfrutar de una experiencia visual inmersiva con colores vibrantes y un alto nivel de detalle. Además, su pantalla cuenta con un orificio para la cámara frontal de 10 MP, que te permite tomar selfies de gran calidad y hacer videollamadas con claridad.\r\n\r\nEl Samsung Galaxy S10e tiene un rendimiento excepcional gracias a su procesador Exynos 9820 o Snapdragon 855, que te permite ejecutar múltiples aplicaciones sin problemas. También tiene una memoria RAM de 6 GB o 8 GB y un almacenamiento interno de 128 GB o 256 GB, que puedes ampliar con una tarjeta microSD hasta 512 GB. Así, tendrás espacio suficiente para guardar todas tus fotos, vídeos, música y documentos.\r\n\r\nEn cuanto a la cámara trasera, el Samsung Galaxy S10e tiene un sistema dual de 12 MP y 16 MP, que te permite capturar imágenes impresionantes con efectos como el zoom óptico, el gran angular, el modo retrato y el modo noche. También puedes grabar vídeos en 4K a 60 fps, con una estabilización óptica de imagen que evita las vibraciones. Además, el Samsung Galaxy S10e tiene funciones inteligentes que te ayudan a mejorar tus fotos, como el reconocimiento de escenas, el optimizador de escenas y el sugeridor de tomas.\r\n\r\nEl Samsung Galaxy S10e tiene una batería de 3100 mAh, que te ofrece una autonomía suficiente para todo el día. Además, cuenta con carga rápida, carga inalámbrica y carga inversa, que te permite compartir tu batería con otros dispositivos compatibles. El Samsung Galaxy S10e también tiene otras características destacadas, como el lector de huellas lateral, el reconocimiento facial, la resistencia al agua y al polvo IP68, el sonido Dolby Atmos y el sistema operativo Android 9 Pie con la interfaz One UI.', 'Azul', '128gb', '151881', ' 142,2', '69,9', '150g'),
 (412, 'Samsung Galaxy A03 64 GB negro 4 GB RAM', 109999, 'Doble cámara y más detalles\r\nSus 2 cámaras traseras de 48 Mpx/2 Mpx te permitirán tomar imágenes con más detalles y lograr efectos únicos como el famoso modo retrato de poca profundidad de campo.\r\n\r\nAdemás, el dispositivo cuenta con cámara frontal de 5 Mpx para que puedas sacarte divertidas selfies o hacer videollamadas.\r\n\r\nMás para ver\r\nCon su pantalla PLS de 6.5\", disfrutá de colores intensos y mayor nitidez en todos tus contenidos.\r\n\r\nMayor rendimiento\r\nSu memoria RAM de 4 GB permite que tu smartphone funcione de manera fluida y sin demoras al realizar distintas tareas, jugar o navegar.\r\n\r\nBatería de duración superior\r\n¡Desenchufate! Con la súper batería de 5000 mAh tendrás energía por mucho más tiempo para jugar, ver series o trabajar sin necesidad de realizar recargas.\r\n\r\nGran capacidad de almacenamiento\r\nCon su memoria interna de 64 GB siempre tendrás espacio para almacenar archivos y documentos importantes. Además, podrás guardar películas, series y videos para reproducirlos cuando quieras sin conexión.\r\n', 'Negro', '64gb', '14181818', '164.2 mm', '75.9 mm', '196 g'),
-(413, 'Samsung Galaxy Note 20', 341000, 'Samsung Galaxy Note 20\r\n\r\nEl Samsung Galaxy Note 20 representa la nueva generación de la serie Galaxy Note de Samsung para el 2020. Con una pantalla Super AMOLED de 6.7 pulgadas a resolución Full HD+, el Galaxy Note 20 está potenciado por un procesador Exynos 990 en versión internacional, con 8GB de memoria RAM 256GB de almacenamiento. La cámara posterior del Galaxy Note 20 es triple, con lentes de 12 MP, 64 MP y 12 MP, mientras que la cámara frontal para selfies es de 10 MP. El Galaxy Note 20 completa sus características con una batería de 4300 mAh con soporte para carga rápida e inalámbrica, parlantes stereo, sonido Hi-Fi, lector de huellas bajo la pantalla, resistencia al agua IP68, y corre One UI 2.5 basado en Android 10, y está disponible en versión LTE o 5G.', 'Bronze', '256gb', '118184845', '161.6 mm', ' 75.2 mm', '192 g'),
-(414, 'Apple iPhone 12 Pro', 1999999, 'El iPhone 12 Pro tiene una espectacular pantalla Super Retina XDR de 6.1 pulgadas (1). Con el nuevo Ceramic Shield, es cuatro veces más resistente a las caídas (2). Y te permite tomar fotos increíbles con poca luz gracias a un nuevo sistema de cámaras Pro y un rango de zoom óptico de 4x. También puedes grabar, editar y reproducir video en Dolby Vision con calidad cinematográfica, tomar retratos con modo Noche y disfrutar experiencias de realidad aumentada de última generación con el escáner LiDAR. El iPhone 12 Pro viene con el potente chip A14 Bionic y es compatible con los nuevos accesorios MagSafe que se adhieren magnéticamente a tu iPhone y brindan una carga inalámbrica más rápida (3). Una infinidad de posibilidades que no dejarán de sorprenderte.', 'Grafito', '256 GB', '7848494545', '146.7 mm', '71.5 mm', ' 187 g');
+(414, 'Apple iPhone 12 Pro', 1999999, 'El iPhone 12 Pro tiene una espectacular pantalla Super Retina XDR de 6.1 pulgadas (1). Con el nuevo Ceramic Shield, es cuatro veces más resistente a las caídas (2). Y te permite tomar fotos increíbles con poca luz gracias a un nuevo sistema de cámaras Pro y un rango de zoom óptico de 4x. También puedes grabar, editar y reproducir video en Dolby Vision con calidad cinematográfica, tomar retratos con modo Noche y disfrutar experiencias de realidad aumentada de última generación con el escáner LiDAR. El iPhone 12 Pro viene con el potente chip A14 Bionic y es compatible con los nuevos accesorios MagSafe que se adhieren magnéticamente a tu iPhone y brindan una carga inalámbrica más rápida (3). Una infinidad de posibilidades que no dejarán de sorprenderte.', 'Grafito', '256 GB', '7848494545', '146.7 mm', '71.5 mm', ' 187 g'),
+(422, 'sfdsf', 5151, 'dsfsdf', 'dsfsdf', 'dsf54', 'dsfsd15f', '4223', '254', '21');
 
 -- --------------------------------------------------------
 
@@ -168,12 +239,13 @@ INSERT INTO `productos_files` (`id`, `producto_id`, `nombre_archivo`) VALUES
 (74, 412, 'a03 4.webp'),
 (75, 412, 'a03 3.webp'),
 (76, 412, 'a03 2.webp'),
-(77, 413, 'note20.webp'),
-(78, 413, 'note20 2.webp'),
 (79, 414, '12 pro 2.webp'),
 (80, 414, '12 pro 3.webp'),
 (81, 414, '12 pro 4.webp'),
-(82, 414, '12 pro.webp');
+(82, 414, '12 pro.webp'),
+(98, 422, 'Captura de pantalla 2023-03-30 211213.png'),
+(99, 422, 'cuota11.png'),
+(100, 422, 'CUOTA22.png');
 
 -- --------------------------------------------------------
 
@@ -200,7 +272,15 @@ INSERT INTO `ventas` (`id`, `idCliente`, `fecha`, `total`, `metodo_pago`, `direc
 (27, 5, '2023-11-15 12:55:18', 344000, 'paypal', 'defadsfsd'),
 (28, 1, '2023-11-16 07:13:13', 302999, 'transferencia', 'Queirel 3806'),
 (29, 1, '2023-11-16 11:43:37', 213000, 'paypal', 'Queirel 3806'),
-(30, 1, '2023-11-16 13:28:19', 302999, 'tarjeta', 'Queirel 3806');
+(30, 1, '2023-11-16 13:28:19', 302999, 'tarjeta', 'Queirel 3806'),
+(31, 1, '2023-11-16 17:16:51', 213000, 'transferencia', 'Queirel 3806'),
+(32, 1, '2023-11-16 17:17:32', 344000, 'paypal', 'Queirel 3806'),
+(33, 7, '2023-11-16 17:38:56', 2002999, 'paypal', 'Que te importa'),
+(34, 1, '2023-11-16 18:29:35', 213000, 'paypal', 'Queirel 3806'),
+(35, 1, '2023-11-16 18:33:06', 2212999, 'paypal', 'Queirel 3806'),
+(36, 8, '2023-11-16 18:45:40', 2302998, 'transferencia', 'Calle pedrito'),
+(37, 11, '2023-11-16 22:05:49', 362999, 'paypal', 'sadad'),
+(38, 13, '2023-11-17 03:21:24', 2002999, 'paypal', 'santa catalina 6029');
 
 --
 -- Índices para tablas volcadas
@@ -261,19 +341,19 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT de la tabla `carrito_usuarios`
 --
 ALTER TABLE `carrito_usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `detalleventas`
 --
 ALTER TABLE `detalleventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de la tabla `permisos`
@@ -285,19 +365,19 @@ ALTER TABLE `permisos`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=416;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=423;
 
 --
 -- AUTO_INCREMENT de la tabla `productos_files`
 --
 ALTER TABLE `productos_files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- Restricciones para tablas volcadas
